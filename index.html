@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Math Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<style>
+  :root {
+    --bg: #F2FAF8;
+    --grid: rgba(13, 148, 136, 0.07);
+    --surface: #FFFFFF;
+    --ink: #142E2A;
+    --muted: #5B7570;
+    --accent: #0D9488;
+    --accent-soft: rgba(13, 148, 136, 0.12);
+    --on-accent: #FFFFFF;
+    --good: #1E8A4C;
+    --good-soft: rgba(30, 138, 76, 0.12);
+    --bad: #D23B3B;
+    --bad-soft: rgba(210, 59, 59, 0.10);
+    --line: #D6E8E4;
+    --shadow: 0 2px 10px rgba(20, 46, 42, 0.07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0A1715;
+      --grid: rgba(45, 212, 191, 0.05);
+      --surface: #11231F;
+      --ink: #E4F2EE;
+      --muted: #8FACA6;
+      --accent: #2DD4BF;
+      --accent-soft: rgba(45, 212, 191, 0.15);
+      --on-accent: #0A1715;
+      --good: #4CC97E;
+      --good-soft: rgba(76, 201, 126, 0.14);
+      --bad: #F07A7A;
+      --bad-soft: rgba(240, 122, 122, 0.13);
+      --line: #1D3832;
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0A1715;
+    --grid: rgba(45, 212, 191, 0.05);
+    --surface: #11231F;
+    --ink: #E4F2EE;
+    --muted: #8FACA6;
+    --accent: #2DD4BF;
+    --accent-soft: rgba(45, 212, 191, 0.15);
+    --on-accent: #0A1715;
+    --good: #4CC97E;
+    --good-soft: rgba(76, 201, 126, 0.14);
+    --bad: #F07A7A;
+    --bad-soft: rgba(240, 122, 122, 0.13);
+    --line: #1D3832;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+      var(--bg);
+    background-size: 28px 28px, 28px 28px, auto;
+    font-family: "Atkinson Hyperlegible", "Avenir Next", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.5;
+    min-height: 100vh;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 620px; margin: 0 auto; padding: 18px 14px 48px; }
+
+  h1, h2, h3 { font-family: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif; text-wrap: balance; margin: 0; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; }
+
+  .topbar { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 4px 2px 14px; }
+  .brand { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.01em; }
+  .brand span { color: var(--accent); }
+  .navlink {
+    background: none; border: none; padding: 4px 2px; cursor: pointer;
+    color: var(--accent); font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;
+  }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 20px 18px; margin-bottom: 14px; }
+
+  .hero h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.15; }
+  .hero p { color: var(--muted); margin: 10px 0 0; }
+  .topic-list { margin: 14px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .topic-list li { font-size: 13.5px; font-weight: 700; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 4px 12px; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; text-align: center;
+    font: inherit; font-weight: 700; cursor: pointer;
+    border-radius: 12px; padding: 13px 20px; min-height: 52px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+    touch-action: manipulation;
+  }
+  .btn:focus-visible, .navlink:focus-visible, input:focus-visible, details summary:focus-visible, .opt:focus-visible {
+    outline: 3px solid var(--accent); outline-offset: 2px;
+  }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-size: 17px; }
+  .btn-wide { width: 100%; }
+  .btn-danger { color: var(--bad); }
+  .btn-row { display: flex; gap: 10px; margin-top: 16px; }
+  .btn-row .btn { flex: 1; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 4px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; }
+  .stat .num { font-family: "IBM Plex Mono", monospace; font-size: 23px; font-weight: 600; }
+  .stat .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+
+  /* ---------- Quiz ---------- */
+  .progress { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 8px 0 10px; }
+  .progress .label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 5px; }
+  .bar { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .bar > div { height: 100%; border-radius: 999px; background: var(--accent); transition: width 0.25s ease; }
+  @media (prefers-reduced-motion: reduce) { .bar > div { transition: none; } }
+
+  .qtopic { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 8px; }
+  .qtext { font-size: 17px; margin: 0 0 6px; }
+  .qtext.big { font-weight: 700; font-size: 19px; }
+  .qmath { font-family: "IBM Plex Mono", monospace; font-size: 24px; font-weight: 600; text-align: center; margin: 10px 0 14px; }
+  .figbox { display: flex; justify-content: center; margin: 8px 0 12px; }
+  .figbox svg { max-width: 100%; height: auto; }
+
+  .shape-main { fill: var(--accent-soft); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+  .p-hi { fill: var(--accent); fill-opacity: 0.5; stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+  .p-dim { fill: var(--line); fill-opacity: 0.3; stroke: var(--ink); stroke-width: 1.2; stroke-linejoin: round; }
+  .p-hole { fill: var(--bad); fill-opacity: 0.25; stroke: var(--bad); stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .p-hole.hi { fill-opacity: 0.55; }
+  .holecut { fill: var(--surface); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+  .cut { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 4; fill: none; }
+  .dline { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .dlabel { font: 600 13px "IBM Plex Mono", monospace; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; }
+
+  .opts { display: flex; flex-direction: column; gap: 9px; }
+  .opt {
+    font: inherit; font-size: 16px; font-weight: 700; text-align: left; cursor: pointer;
+    border: 2px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink);
+    padding: 13px 14px; min-height: 52px; touch-action: manipulation;
+  }
+  .opt.right { border-color: var(--good); background: var(--good-soft); color: var(--good); }
+  .opt.wrong { border-color: var(--bad); background: var(--bad-soft); color: var(--bad); }
+  .opt:disabled { cursor: default; opacity: 1; }
+  .opt.dim:disabled { opacity: 0.55; }
+
+  .answer-line { display: flex; gap: 8px; align-items: center; }
+  input.answer {
+    flex: 1; width: 100%; min-height: 54px; padding: 8px 14px;
+    font-family: "IBM Plex Mono", monospace; font-size: 22px; font-weight: 600;
+    color: var(--ink); background: var(--surface);
+    border: 2px solid var(--line); border-radius: 12px;
+  }
+  input.answer::placeholder { color: var(--muted); opacity: 0.6; font-weight: 500; font-size: 15px; font-family: "Atkinson Hyperlegible", sans-serif; }
+  input.answer.frac { min-width: 0; text-align: center; }
+  .fracslash { font-family: "IBM Plex Mono", monospace; font-size: 30px; font-weight: 600; color: var(--muted); }
+  .unitchip { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 17px; color: var(--muted); }
+  .answer-line .btn { flex: 0 0 auto; }
+  .pmbtn { font-family: "IBM Plex Mono", monospace; font-size: 22px; padding: 13px 16px; }
+
+  .feedback { min-height: 46px; border-radius: 10px; padding: 10px 12px; font-size: 15px; margin-top: 12px; }
+  .feedback.neutral { color: var(--muted); background: var(--surface); border: 1px dashed var(--line); }
+  .feedback.right { color: var(--good); background: var(--good-soft); font-weight: 700; }
+  .feedback.wrong { color: var(--bad); background: var(--bad-soft); font-weight: 700; }
+  .feedback .why { display: block; font-weight: 400; color: var(--ink); margin-top: 4px; }
+
+  /* step-by-step breakdown */
+  .steps { margin-top: 12px; }
+  .step { display: flex; gap: 12px; border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 9px; background: var(--surface); }
+  .step .sfig { flex: 0 0 132px; display: flex; align-items: center; }
+  .step .sfig svg { width: 132px; height: auto; }
+  .step .sbody { flex: 1; min-width: 0; }
+  .step .stitle { font-weight: 700; font-size: 15px; margin-bottom: 3px; }
+  .step .stitle .snum { color: var(--accent); }
+  .step .sline { font-family: "IBM Plex Mono", monospace; font-size: 14px; margin: 2px 0; overflow-x: auto; white-space: nowrap; }
+  .step .snote { color: var(--muted); font-size: 13.5px; margin-top: 3px; }
+  .step.total { border-color: var(--accent); background: var(--accent-soft); }
+  @media (max-width: 460px) { .step .sfig { flex-basis: 104px; } .step .sfig svg { width: 104px; } }
+
+  /* ---------- Results / history / study ---------- */
+  .score-hero { text-align: center; padding: 26px 18px; }
+  .score-big { font-family: "IBM Plex Mono", monospace; font-size: 54px; font-weight: 600; line-height: 1; }
+  .score-msg { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-size: 22px; font-weight: 800; margin-top: 10px; }
+  .score-sub { color: var(--muted); margin-top: 4px; }
+
+  .misslist { margin: 0; padding: 0; list-style: none; }
+  .misslist li { padding: 10px 4px; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .misslist li:last-child { border-bottom: none; }
+  .misslist .q { font-weight: 700; display: block; }
+  .misslist .a { color: var(--bad); font-family: "IBM Plex Mono", monospace; }
+  .misslist .cor { color: var(--good); font-weight: 700; font-family: "IBM Plex Mono", monospace; }
+  .allgood { color: var(--good); font-weight: 700; padding: 10px 4px; }
+
+  .hrow { border-bottom: 1px solid var(--line); }
+  .hrow:last-child { border-bottom: none; }
+  .hrow summary { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 4px; cursor: pointer; list-style: none; }
+  .hrow summary::-webkit-details-marker { display: none; }
+  .hdate { font-size: 15px; flex: 1; }
+  .hdate small { display: block; color: var(--muted); }
+  .hscore { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 14px; color: var(--muted); }
+  .hpct { font-family: "IBM Plex Mono", monospace; font-weight: 600; border-radius: 999px; padding: 4px 11px; font-size: 14px; }
+  .pct-good { color: var(--good); background: var(--good-soft); }
+  .pct-mid  { color: var(--accent); background: var(--accent-soft); }
+  .pct-low  { color: var(--bad); background: var(--bad-soft); }
+  .hdetail { padding: 0 4px 12px; }
+
+  .trouble .tlabel { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .trouble .tlabel .mono { color: var(--muted); font-weight: 600; font-size: 13px; }
+  .tbar { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; margin-bottom: 9px; }
+  .tbar > div { height: 100%; border-radius: 999px; background: var(--bad); }
+
+  .study h3 { font-size: 17px; margin: 16px 0 6px; color: var(--accent); }
+  .study h3:first-of-type { margin-top: 0; }
+  .study ul { margin: 0; padding-left: 20px; }
+  .study li { margin-bottom: 5px; font-size: 15.5px; }
+  .study b { color: var(--accent); }
+  .study code { font-family: "IBM Plex Mono", monospace; font-size: 14px; background: var(--accent-soft); border-radius: 5px; padding: 1px 6px; }
+
+  .empty { color: var(--muted); text-align: center; padding: 26px 10px; }
+  .footnote { color: var(--muted); font-size: 13px; text-align: center; margin-top: 18px; }
+  #confetti { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">Math <span>Review</span></div>
+    <button class="navlink" id="navBtn"></button>
+  </div>
+  <div id="app"></div>
+</div>
+<canvas id="confetti" hidden></canvas>
+
+<script>
+"use strict";
+
+/* ================= helpers ================= */
+const rnd = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const pick = arr => arr[rnd(0, arr.length - 1)];
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+const PI = 3.14;
+const r2 = v => Math.round((v + 1e-9) * 100) / 100;
+const num = v => {
+  const x = r2(v);
+  return Number.isInteger(x) ? String(x) : x.toFixed(2).replace(/0$/, "");
+};
+const numN = (v, p) => {
+  const m = Math.pow(10, p);
+  return String(Math.round((v + 1e-9) * m) / m);
+};
+const fmtI = v => v < 0 ? "−" + (-v) : String(v);
+const th = v => v.toLocaleString("en-US");
+const money = v => "$" + r2(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const gcd = (a, b) => b ? gcd(b, a % b) : a;
+const simp = (n, d) => { const g = gcd(n, d) || 1; return [n / g, d / g]; };
+const UNITS = ["in", "ft", "yd", "cm", "m"];
+
+/* ================= SVG drawing kit (worksheet-style figures) ================= */
+function arrowhead(x, y, a) {
+  const s = 7;
+  return `<path class="dline" d="M${x} ${y} l${(s * Math.cos(a - 0.45)).toFixed(1)} ${(s * Math.sin(a - 0.45)).toFixed(1)} M${x} ${y} l${(s * Math.cos(a + 0.45)).toFixed(1)} ${(s * Math.sin(a + 0.45)).toFixed(1)}"/>`;
+}
+function dimH(x1, x2, y, label) {
+  return `<line class="dline" x1="${x1}" y1="${y}" x2="${x2}" y2="${y}"/>` +
+    arrowhead(x1, y, 0) + arrowhead(x2, y, Math.PI) +
+    `<text class="dlabel" x="${(x1 + x2) / 2}" y="${y - 6}" text-anchor="middle">${label}</text>`;
+}
+function dimV(x, y1, y2, label, side) {
+  const anchor = side === "left" ? "end" : "start";
+  const tx = side === "left" ? x - 8 : x + 8;
+  return `<line class="dline" x1="${x}" y1="${y1}" x2="${x}" y2="${y2}"/>` +
+    arrowhead(x, y1, Math.PI / 2) + arrowhead(x, y2, -Math.PI / 2) +
+    `<text class="dlabel" x="${tx}" y="${(y1 + y2) / 2 + 4}" text-anchor="${anchor}">${label}</text>`;
+}
+const pcls = (i, h, hole) => hole ? "p-hole" : (h === null || h === undefined) ? (i === -1 ? "shape-main" : "p-dim") : (i === h ? "p-hi" : "p-dim");
+const holeCls = h => h === 1 ? "p-hole hi" : "p-hole";
+function P(pts) { return pts.map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" "); }
+function wrapSVG(inner, w, h, padL, padT, padR, padB) {
+  const vw = w + padL + padR, vh = h + padT + padB;
+  return `<svg viewBox="${-padL} ${-padT} ${vw} ${vh}" width="${Math.min(360, vw)}" role="img" aria-label="geometry figure">${inner}</svg>`;
+}
+
+/* ================= question factories =================
+   kinds: fig (typed area), num (typed number), frac (fraction), int (integer), mc
+   Every missLabel starts "Topic: ..." so history can tally trouble topics. */
+function fig(topic, fam, unit, exact, render, steps, missLabel, test, prompt) {
+  return { t: topic, kind: "fig", fam, unit, exact, ans2: r2(exact),
+    ansText: num(exact) + " " + unit + "²", render, steps,
+    missLabel: topic + ": " + missLabel, test,
+    prompt: prompt || "Find the area of the figure. <b>π = 3.14</b>, round to 2 decimals if needed." };
+}
+function finish(fam, unit, exact, render, steps, missLabel, test) {
+  return fig("Compound areas", fam, unit, exact, render, steps, missLabel, test);
+}
+function shadedFig(fam, unit, exact, render, steps, missLabel, test) {
+  return fig("Shaded regions", fam, unit, exact, render, steps, missLabel, test,
+    "Find the area of the <b>shaded</b> region. <b>π = 3.14</b>, round to 2 decimals if needed.");
+}
+
+/* =========================================================
+   SHADED REGIONS — whole shape minus a cut-out (7 families)
+   ========================================================= */
+
+/* S1 — rectangle with a triangle notch cut from the bottom edge */
+function sRectTri() {
+  const unit = pick(UNITS);
+  const W = rnd(14, 22), H = rnd(8, 13);
+  const b = rnd(4, 8), t = rnd(4, Math.min(8, H - 2));
+  const exact = W * H - b * t / 2;
+  const s = Math.min(22, 310 / W, 170 / H);
+  const x1 = (W - b) / 2, x2 = (W + b) / 2, xm = W / 2;
+  const render = h => {
+    const outer = [[0, 0], [W, 0], [W, H], [x2, H], [xm, H - t], [x1, H], [0, H]].map(p => [p[0] * s, p[1] * s]);
+    const rect = `<polygon class="${pcls(0, h)}" points="${P([[0, 0], [W * s, 0], [W * s, H * s], [0, H * s]])}"/>`;
+    const hole = `<polygon class="${holeCls(h)}" points="${P([[x1 * s, H * s], [xm * s, (H - t) * s], [x2 * s, H * s]])}"/>`;
+    const base = (h === null || h === undefined) ? `<polygon class="shape-main" points="${P(outer)}"/>` : rect + hole;
+    return wrapSVG(base +
+      dimH(0, W * s, -14, W + " " + unit) +
+      dimV(-14, 0, H * s, H + " " + unit, "left") +
+      dimV(xm * s, (H - t) * s, H * s, t + " " + unit, "right") +
+      dimH(x1 * s, x2 * s, H * s + 20, b + " " + unit),
+      W * s, H * s, 52, 30, 44, 40);
+  };
+  return shadedFig("Rect − triangle notch", unit, exact, render, [
+    { title: "Spot the cut-out", note: "The triangle notch is CUT OUT of the rectangle — so it's whole shape minus hole.", part: null },
+    { title: "Whole rectangle", lines: [`A = l × w = ${W} × ${H} = ${W * H} ${unit}²`], part: 0 },
+    { title: "Triangle hole", lines: [`A = ½ × b × h = ½ × ${b} × ${t}`, `A = ${num(b * t / 2)} ${unit}²`], part: 1 },
+    { title: "Subtract the hole", lines: [`${W * H} − ${num(b * t / 2)} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `rect ${W}×${H} − triangle b=${b} h=${t}`,
+  { terms: [{ p: [[0, 0], [W, 0], [W, H], [x2, H], [xm, H - t], [x1, H], [0, H]] }] });
+}
+
+/* S2 — triangle with a circle cut out */
+function sTriCircle() {
+  const unit = pick(UNITS);
+  const b = rnd(12, 18), hh = rnd(14, 20);
+  const rOK = [3, 4].filter(r => (b / 2) * ((hh - r - 1) / hh) >= r + 0.5);
+  const r = pick(rOK);
+  const exact = b * hh / 2 - PI * r * r;
+  const s = Math.min(20, 300 / b, 185 / hh);
+  const cx = b / 2, cy = hh - r - 1;
+  const render = h => {
+    const triPts = [[0, hh], [b / 2, 0], [b, hh]].map(p => [p[0] * s, p[1] * s]);
+    const base = (h === null || h === undefined)
+      ? `<polygon class="shape-main" points="${P(triPts)}"/><circle class="holecut" cx="${cx * s}" cy="${cy * s}" r="${r * s}"/>`
+      : `<polygon class="${pcls(0, h)}" points="${P(triPts)}"/><circle class="${holeCls(h)}" cx="${cx * s}" cy="${cy * s}" r="${r * s}"/>`;
+    const rad = `<line class="dline" x1="${cx * s}" y1="${cy * s}" x2="${(cx + r * 0.707) * s}" y2="${(cy - r * 0.707) * s}"/>` +
+      `<circle fill="var(--ink)" cx="${cx * s}" cy="${cy * s}" r="2.5"/>` +
+      `<text class="dlabel" x="${(cx + r * 0.45) * s + 8}" y="${(cy - r * 0.6) * s - 4}">${r} ${unit}</text>`;
+    return wrapSVG(base + rad +
+      dimV(-14, 0, hh * s, hh + " " + unit, "left") +
+      dimH(0, b * s, hh * s + 18, b + " " + unit),
+      b * s, hh * s, 52, 14, 46, 34);
+  };
+  return shadedFig("Triangle − circle", unit, exact, render, [
+    { title: "Spot the cut-out", note: "A circle is cut out of the triangle. Find both areas, then subtract.", part: null },
+    { title: "Whole triangle", lines: [`A = ½ × b × h = ½ × ${b} × ${hh}`, `A = ${num(b * hh / 2)} ${unit}²`], part: 0 },
+    { title: "Circle hole", lines: [`A = π × r² = ${PI} × ${r}²`, `A = ${PI} × ${r * r} = ${num(PI * r * r)} ${unit}²`], note: "The label is the RADIUS here — no halving needed.", part: 1 },
+    { title: "Subtract the hole", lines: [`${num(b * hh / 2)} − ${num(PI * r * r)} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `triangle b=${b} h=${hh} − circle r=${r}`,
+  { terms: [{ p: [[0, hh], [b / 2, 0], [b, hh]] }, { c: r, s: -1 }] });
+}
+
+/* S3 — circle with a trapezoid cut out (bottom base = the diameter!) */
+function sCircleTrap() {
+  const unit = pick(UNITS);
+  const d = pick([16, 18, 20, 22, 24, 26]), r = d / 2;
+  const hh = rnd(4, Math.min(8, r - 2));
+  const bmax = Math.min(d - 6, Math.floor(2 * Math.sqrt(r * r - hh * hh)) - 1);
+  const b1 = rnd(Math.min(8, bmax), bmax);
+  const trapA = (b1 + d) / 2 * hh;
+  const exact = PI * r * r - trapA;
+  const s = Math.min(13, 230 / d);
+  const cx = r * s, cy = r * s;
+  const trap = [[0, r], [d, r], [r + b1 / 2, r - hh], [r - b1 / 2, r - hh]];
+  const render = h => {
+    const trapPts = trap.map(p => [p[0] * s, p[1] * s]);
+    const base = (h === null || h === undefined)
+      ? `<circle class="shape-main" cx="${cx}" cy="${cy}" r="${r * s}"/><polygon class="holecut" points="${P(trapPts)}"/>`
+      : `<circle class="${pcls(0, h)}" cx="${cx}" cy="${cy}" r="${r * s}"/><polygon class="${holeCls(h)}" points="${P(trapPts)}"/>`;
+    const labels =
+      `<circle fill="var(--ink)" cx="${cx}" cy="${cy}" r="2.5"/>` +
+      `<text class="dlabel" x="${cx}" y="${cy + 17}" text-anchor="middle">${d} ${unit}</text>` +
+      `<text class="dlabel" x="${cx}" y="${(r - hh) * s - 5}" text-anchor="middle">${b1} ${unit}</text>` +
+      dimV(cx - b1 / 4 * s, (r - hh) * s, r * s, hh + " " + unit, "right");
+    return wrapSVG(base + labels, d * s, d * s, 14, 16, 14, 14);
+  };
+  return shadedFig("Circle − trapezoid", unit, exact, render, [
+    { title: "Spot the cut-out", note: "A trapezoid is cut from the circle. Its long base runs through the CENTER — that's the diameter!", part: null },
+    { title: "Halve the diameter", lines: [`r = ${d} ÷ 2 = ${num(r)}`], note: "The " + d + " is a DIAMETER. Halve it before squaring!", part: 0 },
+    { title: "Whole circle", lines: [`A = π × r² = ${PI} × ${num(r)}²`, `A = ${PI} × ${num(r * r)} = ${num(PI * r * r)} ${unit}²`], part: 0 },
+    { title: "Trapezoid hole", lines: [`A = ½ × (b₁ + b₂) × h`, `A = ½ × (${b1} + ${d}) × ${hh}`, `A = ½ × ${b1 + d} × ${hh} = ${num(trapA)} ${unit}²`], part: 1 },
+    { title: "Subtract the hole", lines: [`${num(PI * r * r)} − ${num(trapA)} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `circle d=${d} − trapezoid ${b1}/${d} h=${hh}`,
+  { terms: [{ c: r, s: 1 }, { p: trap, s: -1 }] });
+}
+
+/* S4 — square with a parallelogram cut out */
+function sSquarePara() {
+  const unit = pick(UNITS);
+  const S = rnd(16, 24);
+  const off = rnd(3, 5);
+  const b = rnd(7, S - off - 4), hp = rnd(5, S - 6);
+  const x0 = (S - b - off) / 2, y0 = (S - hp) / 2;
+  const para = [[x0, y0 + hp], [x0 + b, y0 + hp], [x0 + b + off, y0], [x0 + off, y0]];
+  const exact = S * S - b * hp;
+  const s = Math.min(11, 230 / S);
+  const render = h => {
+    const sq = [[0, 0], [S * s, 0], [S * s, S * s], [0, S * s]];
+    const pp = para.map(p => [p[0] * s, p[1] * s]);
+    const base = (h === null || h === undefined)
+      ? `<polygon class="shape-main" points="${P(sq)}"/><polygon class="holecut" points="${P(pp)}"/>`
+      : `<polygon class="${pcls(0, h)}" points="${P(sq)}"/><polygon class="${holeCls(h)}" points="${P(pp)}"/>`;
+    return wrapSVG(base +
+      dimH(0, S * s, -14, S + " " + unit) +
+      dimV(-14, 0, S * s, S + " " + unit, "left") +
+      dimV((x0 + b / 2 + off / 2) * s, y0 * s, (y0 + hp) * s, hp + " " + unit, "right") +
+      `<text class="dlabel" x="${(x0 + b / 2) * s}" y="${(y0 + hp) * s + 16}" text-anchor="middle">${b} ${unit}</text>`,
+      S * s, S * s, 52, 30, 14, 26);
+  };
+  return shadedFig("Square − parallelogram", unit, exact, render, [
+    { title: "Spot the cut-out", note: "A slanted parallelogram is cut from the square.", part: null },
+    { title: "Whole square", lines: [`A = s × s = ${S} × ${S} = ${S * S} ${unit}²`], part: 0 },
+    { title: "Parallelogram hole", lines: [`A = b × h = ${b} × ${hp}`, `A = ${b * hp} ${unit}²`], note: "Use the straight-up height, never the slanted side!", part: 1 },
+    { title: "Subtract the hole", lines: [`${S * S} − ${b * hp} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `square ${S}×${S} − parallelogram ${b}×${hp}`,
+  { terms: [{ p: [[0, 0], [S, 0], [S, S], [0, S]] }, { p: para, s: -1 }] });
+}
+
+/* S5 — flag/banner: rectangle with a V-notch cut from the right edge */
+function sFlag() {
+  const unit = pick(UNITS);
+  const W = rnd(16, 24), H = rnd(8, 13), dp = rnd(4, 7);
+  const exact = W * H - H * dp / 2;
+  const s = Math.min(20, 300 / W, 170 / H);
+  const render = h => {
+    const outer = [[0, 0], [W, 0], [W - dp, H / 2], [W, H], [0, H]].map(p => [p[0] * s, p[1] * s]);
+    const rect = `<polygon class="${pcls(0, h)}" points="${P([[0, 0], [W * s, 0], [W * s, H * s], [0, H * s]])}"/>`;
+    const hole = `<polygon class="${holeCls(h)}" points="${P([[W * s, 0], [(W - dp) * s, H / 2 * s], [W * s, H * s]])}"/>`;
+    const base = (h === null || h === undefined) ? `<polygon class="shape-main" points="${P(outer)}"/>` : rect + hole;
+    const notchDim = `<line class="dline" x1="${(W - dp) * s}" y1="${H / 2 * s}" x2="${W * s}" y2="${H / 2 * s}"/>` +
+      arrowhead((W - dp) * s, H / 2 * s, 0) + arrowhead(W * s, H / 2 * s, Math.PI) +
+      `<text class="dlabel" x="${W * s + 8}" y="${H / 2 * s + 4}" text-anchor="start">${dp} ${unit}</text>`;
+    return wrapSVG(base + notchDim +
+      dimH(0, W * s, -14, W + " " + unit) +
+      dimV(-14, 0, H * s, H + " " + unit, "left"),
+      W * s, H * s, 52, 30, 62, 14);
+  };
+  return shadedFig("Banner (V-notch)", unit, exact, render, [
+    { title: "Spot the cut-out", note: "A triangle V-notch is cut from the right edge of the rectangle.", part: null },
+    { title: "Whole rectangle", lines: [`A = l × w = ${W} × ${H} = ${W * H} ${unit}²`], part: 0 },
+    { title: "Triangle notch", lines: [`base = ${H} (the whole right edge!)`, `A = ½ × ${H} × ${dp} = ${num(H * dp / 2)} ${unit}²`], note: "The notch's base runs top-to-bottom; its height is how deep it cuts in.", part: 1 },
+    { title: "Subtract the notch", lines: [`${W * H} − ${num(H * dp / 2)} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `banner ${W}×${H} − notch deep=${dp}`,
+  { terms: [{ p: [[0, 0], [W, 0], [W - dp, H / 2], [W, H], [0, H]] }] });
+}
+
+/* S6 — ring: big circle (given as DIAMETER) minus small circle (given as radius) */
+function sRing() {
+  const unit = pick(UNITS);
+  const D = pick([14, 16, 18, 20, 22, 24, 26]), R = D / 2;
+  const ir = rnd(3, R - 3);
+  const exact = PI * (R * R - ir * ir);
+  const s = Math.min(13, 230 / D);
+  const c = R * s;
+  const render = h => {
+    const base = (h === null || h === undefined)
+      ? `<circle class="shape-main" cx="${c}" cy="${c}" r="${R * s}"/><circle class="holecut" cx="${c}" cy="${c}" r="${ir * s}"/>`
+      : `<circle class="${pcls(0, h)}" cx="${c}" cy="${c}" r="${R * s}"/><circle class="${holeCls(h)}" cx="${c}" cy="${c}" r="${ir * s}"/>`;
+    const labels =
+      `<circle fill="var(--ink)" cx="${c}" cy="${c}" r="2.5"/>` +
+      `<line class="dline" x1="${c}" y1="${c}" x2="${(R + ir * 0.707) * s}" y2="${(R - ir * 0.707) * s}"/>` +
+      `<text class="dlabel" x="${(R + ir * 0.45) * s + 6}" y="${(R - ir * 0.6) * s - 4}">${ir} ${unit}</text>` +
+      `<line class="cut" x1="0" y1="${c}" x2="0" y2="${D * s + 14}"/>` +
+      `<line class="cut" x1="${D * s}" y1="${c}" x2="${D * s}" y2="${D * s + 14}"/>` +
+      dimH(0, D * s, D * s + 20, D + " " + unit);
+    return wrapSVG(base + labels, D * s, D * s, 14, 14, 50, 40);
+  };
+  return shadedFig("Ring (circle − circle)", unit, exact, render, [
+    { title: "Spot the cut-out", note: "A washer/donut: small circle cut from a big circle.", part: null },
+    { title: "Halve the diameter", lines: [`R = ${D} ÷ 2 = ${num(R)}`], note: "The " + D + " stretches all the way across — it's the DIAMETER.", part: 0 },
+    { title: "Big circle", lines: [`A = ${PI} × ${num(R)}² = ${PI} × ${num(R * R)}`, `A = ${num(PI * R * R)} ${unit}²`], part: 0 },
+    { title: "Small circle", lines: [`A = ${PI} × ${ir}² = ${PI} × ${ir * ir}`, `A = ${num(PI * ir * ir)} ${unit}²`], note: "The " + ir + " goes only from the center to the edge — already a radius.", part: 1 },
+    { title: "Subtract", lines: [`${num(PI * R * R)} − ${num(PI * ir * ir)} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `ring D=${D} − r=${ir}`,
+  { terms: [{ c: R, s: 1 }, { c: ir, s: -1 }] });
+}
+
+/* S7 — rectangle with a circular hole (given as diameter) */
+function sRectCircle() {
+  const unit = pick(UNITS);
+  const W = rnd(13, 20), H = rnd(9, 14);
+  const cd = pick([4, 6, 8].filter(x => x <= Math.min(W, H) - 3)), cr = cd / 2;
+  const exact = W * H - PI * cr * cr;
+  const s = Math.min(22, 300 / W, 170 / H);
+  const cx = W / 2 * s, cy = H / 2 * s;
+  const render = h => {
+    const base = (h === null || h === undefined)
+      ? `<polygon class="shape-main" points="${P([[0, 0], [W * s, 0], [W * s, H * s], [0, H * s]])}"/><circle class="holecut" cx="${cx}" cy="${cy}" r="${cr * s}"/>`
+      : `<polygon class="${pcls(0, h)}" points="${P([[0, 0], [W * s, 0], [W * s, H * s], [0, H * s]])}"/><circle class="${holeCls(h)}" cx="${cx}" cy="${cy}" r="${cr * s}"/>`;
+    return wrapSVG(base +
+      dimH(0, W * s, -14, W + " " + unit) +
+      dimV(-14, 0, H * s, H + " " + unit, "left") +
+      dimH(cx - cr * s, cx + cr * s, cy, cd + " " + unit),
+      W * s, H * s, 52, 30, 14, 14);
+  };
+  return shadedFig("Rect − circle hole", unit, exact, render, [
+    { title: "Spot the cut-out", note: "A round hole is punched out of the rectangle.", part: null },
+    { title: "Whole rectangle", lines: [`A = l × w = ${W} × ${H} = ${W * H} ${unit}²`], part: 0 },
+    { title: "Halve the diameter", lines: [`r = ${cd} ÷ 2 = ${num(cr)}`], note: "The " + cd + " goes all the way across the hole — diameter!", part: 1 },
+    { title: "Circle hole", lines: [`A = ${PI} × ${num(cr)}² = ${PI} × ${num(cr * cr)}`, `A = ${num(PI * cr * cr)} ${unit}²`], part: 1 },
+    { title: "Subtract the hole", lines: [`${W * H} − ${num(PI * cr * cr)} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `rect ${W}×${H} − circle d=${cd}`,
+  { terms: [{ p: [[0, 0], [W, 0], [W, H], [0, H]] }, { c: cr, s: -1 }] });
+}
+
+/* =========================================================
+   CIRCUMFERENCE WORD PROBLEMS (6 kinds)
+   ========================================================= */
+function wp(prompt, exact, ans2, ansText, chip, steps, missLabel, test, extra) {
+  return Object.assign({ t: "Circumference", kind: "num", prompt, exact, ans2, ansText, chip, steps,
+    missLabel: "Circumference: " + missLabel, test }, extra || {});
+}
+
+/* C1 — find circumference from radius or diameter */
+function cCirc() {
+  const unit = pick(["ft", "in", "m"]);
+  if (Math.random() < 0.5) {
+    const obj = pick(["circular fountain", "round hot tub", "merry-go-round", "round trampoline", "circular fire pit"]);
+    const r = rnd(3, 12) + pick([0, 0, 0.5, 0.4, 0.2, 0.6]);
+    const exact = 2 * PI * r;
+    return wp(
+      `A ${obj} has a <b>radius</b> of ${num(r)} ${unit}. Find its circumference. (π = 3.14, round to hundredths if needed)`,
+      exact, r2(exact), num(exact) + " " + unit, unit, [
+        { title: "Pick the right formula", lines: [`C = 2 × π × r`], note: "You're given the RADIUS, so use C = 2πr.", part: null },
+        { title: "Plug in", lines: [`C = 2 × ${PI} × ${num(r)}`, `C = ${numN(exact, 3)} ${unit}`], part: null },
+        { title: "Round", lines: [`C ≈ ${num(exact)} ${unit}`], part: null },
+      ], `C from radius ${num(r)} ${unit}`, { f: "circ2r", r });
+  } else {
+    const obj = pick(["circular clock", "round pizza", "bicycle wheel", "round mirror", "circular pond"]);
+    const d = rnd(6, 30);
+    const exact = PI * d;
+    return wp(
+      `A ${obj} has a <b>diameter</b> of ${d} ${unit}. Find its circumference. (π = 3.14)`,
+      exact, r2(exact), num(exact) + " " + unit, unit, [
+        { title: "Pick the right formula", lines: [`C = π × d`], note: "You're given the DIAMETER, so use C = πd.", part: null },
+        { title: "Plug in", lines: [`C = ${PI} × ${d} = ${num(exact)} ${unit}`], part: null },
+      ], `C from diameter ${d} ${unit}`, { f: "circd", d });
+  }
+}
+
+/* C2 — fencing cost around a circular garden */
+function cFence() {
+  const obj = pick(["circular garden", "round flower bed", "circular pool", "round pen for the dog"]);
+  const r = rnd(15, 60);
+  const p = pick([2.50, 3.25, 4.50, 5.75, 6.25, 7.50, 8.75]);
+  const C = 2 * PI * r, exact = C * p;
+  return wp(
+    `Mark's ${obj} has a radius of ${r} feet. He wants to enclose it with fencing that costs ${money(p)} per foot. About how much will the fencing cost?`,
+    exact, r2(exact), money(exact), "", [
+      { title: "Find the distance around", lines: [`C = 2 × π × r = 2 × ${PI} × ${r}`, `C = ${num(C)} ft`], note: "Fencing goes around the edge — that's circumference.", part: null },
+      { title: "Multiply by the price", lines: [`${num(C)} × ${money(p)} = ${money(exact)}`], part: null },
+    ], `fencing r=${r} at ${money(p)}/ft`, { f: "fence", r, p }, { chipPre: "$" });
+}
+
+/* C3 — Ferris wheel: distance for n revolutions */
+function cFerris() {
+  const obj = pick(["Ferris wheel", "carousel", "giant observation wheel"]);
+  const d = rnd(20, 45) * 2, n = rnd(8, 18);
+  const C = PI * d, exact = C * n;
+  return wp(
+    `A ${obj} has a diameter of ${d} feet and makes ${n} revolutions per ride. How far would you travel during one ride?`,
+    exact, r2(exact), th(r2(exact)) + " ft", "ft", [
+      { title: "One trip around", lines: [`C = π × d = ${PI} × ${d}`, `C = ${num(C)} ft`], note: "Each revolution covers one circumference.", part: null },
+      { title: "Multiply by revolutions", lines: [`${num(C)} × ${n} = ${th(r2(exact))} ft`], part: null },
+    ], `Ferris wheel d=${d}, ${n} revs`, { f: "ferris", d, n });
+}
+
+/* C4 — how many revolutions to cover a distance */
+function cBike() {
+  const d = pick([2, 2.5, 3, 3.5, 4]);
+  const k = rnd(1, 5);
+  const total = k * 3280;
+  const C = PI * d;
+  const exact = total / C;
+  const rounded = Math.round(exact);
+  return wp(
+    `The diameter of a bicycle wheel is ${num(d)} feet. About how many revolutions does the wheel make to travel ${k} kilometer${k > 1 ? "s" : ""}? (1 km ≈ 3,280 ft — round to the nearest whole revolution)`,
+    exact, rounded, "≈ " + th(rounded) + " revolutions", "rev", [
+      { title: "One revolution covers", lines: [`C = π × d = ${PI} × ${num(d)}`, `C = ${num(C)} ft`], part: null },
+      { title: "Total distance in feet", lines: [`${k} km = ${k} × 3,280 = ${th(total)} ft`], part: null },
+      { title: "Divide", lines: [`${th(total)} ÷ ${num(C)} = ${numN(exact, 2)}`, `≈ ${th(rounded)} revolutions`], note: "Distance ÷ one-lap distance = number of laps.", part: null },
+    ], `revolutions: d=${num(d)} ft, ${k} km`, { f: "bike", d, k },
+    { ok: u => Math.abs(u - exact) < 1 });
+}
+
+/* C5 — pond bridge vs walking halfway around */
+function cPond() {
+  const d = pick([0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.6, 0.7, 0.8]);
+  const C = PI * d, half = C / 2, exact = half - d;
+  return wp(
+    `A bridge crosses a circular pond along its diameter and is ${num(d)} mile long. You walk across the bridge while your friend walks halfway around the pond to meet you. How much farther does your friend walk? (round to hundredths)`,
+    exact, r2(exact), num(exact) + " mi", "mi", [
+      { title: "All the way around", lines: [`C = π × d = ${PI} × ${num(d)}`, `C = ${numN(C, 4)} mi`], part: null },
+      { title: "Your friend goes HALF way", lines: [`${numN(C, 4)} ÷ 2 = ${numN(half, 4)} mi`], part: null },
+      { title: "Compare the two walks", lines: [`${numN(half, 4)} − ${num(d)} = ${numN(exact, 4)}`, `≈ ${num(exact)} mi farther`], note: "Friend's half-circle minus your straight bridge.", part: null },
+    ], `pond bridge d=${num(d)} mi`, { f: "pond", d });
+}
+
+/* C6 — work backwards: circumference given, find diameter */
+function cHoop() {
+  const obj = pick(["hula hoop", "bike tire", "round table", "circular rug", "pizza pan"]);
+  const unit = pick(["in", "ft", "cm"]);
+  const d = rnd(12, 40);
+  const C = PI * d;
+  return wp(
+    `The circumference of a ${obj} is ${num(C)} ${unit}. What is its <b>diameter</b>?`,
+    d, d, d + " " + unit, unit, [
+      { title: "Work backwards", lines: [`C = π × d  →  d = C ÷ π`], note: "To undo multiplying by π, divide by π.", part: null },
+      { title: "Divide", lines: [`d = ${num(C)} ÷ ${PI} = ${d} ${unit}`], part: null },
+    ], `d from C=${num(C)} ${unit}`, { f: "hoop", d });
+}
+
+/* =========================================================
+   COMPOUND AREAS (ported from Area Arena — add the pieces)
+   ========================================================= */
+
+/* rectangle + semicircle on the end (stadium) */
+function fStadium() {
+  const unit = pick(UNITS);
+  const L = rnd(8, 14), H = rnd(4, 9), r = H / 2;
+  const exact = L * H + PI * r * r / 2;
+  const s = Math.min(22, 300 / (L + r));
+  const render = h => {
+    const rectP = `<polygon class="${pcls(0, h)}" points="${P([[0, 0], [L * s, 0], [L * s, H * s], [0, H * s]])}"/>`;
+    const semiP = `<path class="${pcls(1, h)}" d="M${L * s} 0 A${r * s} ${r * s} 0 0 1 ${L * s} ${H * s} Z"/>`;
+    const base = h === null || h === undefined
+      ? `<path class="shape-main" d="M0 0 H${L * s} A${r * s} ${r * s} 0 0 1 ${L * s} ${H * s} H0 Z"/><line class="cut" x1="${L * s}" y1="0" x2="${L * s}" y2="${H * s}"/>`
+      : rectP + semiP;
+    return wrapSVG(base + dimH(0, L * s, -14, L + " " + unit) + dimV(-14, 0, H * s, H + " " + unit, "left"),
+      (L + r) * s, H * s, 52, 30, 14, 12);
+  };
+  return finish("Rectangle + semicircle", unit, exact, render, [
+    { title: "Split the figure", note: "Draw a line where the half-circle meets the rectangle — two shapes you know!", part: null },
+    { title: "Rectangle", lines: [`A = l × w = ${L} × ${H} = ${L * H} ${unit}²`], part: 0 },
+    { title: "Semicircle", lines: [`r = ${H} ÷ 2 = ${num(r)}`, `A = (${PI} × ${num(r)}²) ÷ 2`, `A = ${num(PI * r * r)} ÷ 2 = ${num(PI * r * r / 2)} ${unit}²`], note: "Half a circle = half of πr².", part: 1 },
+    { title: "Add the parts", lines: [`${L * H} + ${num(PI * r * r / 2)} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `rect ${L}×${H} + semicircle r=${num(r)}`, { terms: [{ p: [[0, 0], [L, 0], [L, H], [0, H]] }, { h: r, s: 1 }] });
+}
+
+/* house: rectangle + triangle on top */
+function fHouse() {
+  const unit = pick(UNITS);
+  const W = rnd(6, 12), H = rnd(4, 9), T = rnd(3, 6);
+  const exact = W * H + W * T / 2;
+  const s = Math.min(22, 300 / W, 170 / (H + T));
+  const render = h => {
+    const tri = `<polygon class="${pcls(1, h)}" points="${P([[0, T * s], [W / 2 * s, 0], [W * s, T * s]])}"/>`;
+    const rect = `<polygon class="${pcls(0, h)}" points="${P([[0, T * s], [W * s, T * s], [W * s, (T + H) * s], [0, (T + H) * s]])}"/>`;
+    const base = h === null || h === undefined
+      ? `<polygon class="shape-main" points="${P([[0, T * s], [W / 2 * s, 0], [W * s, T * s], [W * s, (T + H) * s], [0, (T + H) * s]])}"/><line class="cut" x1="0" y1="${T * s}" x2="${W * s}" y2="${T * s}"/>`
+      : rect + tri;
+    return wrapSVG(base +
+      dimH(0, W * s, (T + H) * s + 18, W + " " + unit) +
+      dimV(W * s + 16, T * s, (T + H) * s, H + " " + unit, "right") +
+      dimV(W * s + 16, 0, T * s, T + " " + unit, "right"),
+      W * s, (T + H) * s, 16, 12, 72, 34);
+  };
+  return finish("Rectangle + triangle (house)", unit, exact, render, [
+    { title: "Split the figure", note: "Slice off the roof — a triangle on top of a rectangle.", part: null },
+    { title: "Rectangle", lines: [`A = l × w = ${W} × ${H} = ${W * H} ${unit}²`], part: 0 },
+    { title: "Triangle", lines: [`A = ½ × b × h = ½ × ${W} × ${T}`, `A = ${num(W * T / 2)} ${unit}²`], note: "The triangle's base is the same as the rectangle's width.", part: 1 },
+    { title: "Add the parts", lines: [`${W * H} + ${num(W * T / 2)} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `house: rect ${W}×${H} + triangle b=${W} h=${T}`, { terms: [{ p: [[0, T], [W / 2, 0], [W, T], [W, T + H], [0, T + H]] }] });
+}
+
+/* L-shape: two rectangles, hidden width */
+function fLshape() {
+  const unit = pick(UNITS);
+  const a = rnd(5, 9), W = a + rnd(4, 8), H = rnd(8, 13), h2 = rnd(3, H - 4);
+  const c = W - a;
+  const exact = a * H + c * h2;
+  const s = Math.min(20, 280 / W, 180 / H);
+  const render = h => {
+    const r1 = `<polygon class="${pcls(0, h)}" points="${P([[0, 0], [a * s, 0], [a * s, H * s], [0, H * s]])}"/>`;
+    const r2p = `<polygon class="${pcls(1, h)}" points="${P([[a * s, (H - h2) * s], [W * s, (H - h2) * s], [W * s, H * s], [a * s, H * s]])}"/>`;
+    const base = h === null || h === undefined
+      ? `<polygon class="shape-main" points="${P([[0, 0], [a * s, 0], [a * s, (H - h2) * s], [W * s, (H - h2) * s], [W * s, H * s], [0, H * s]])}"/><line class="cut" x1="${a * s}" y1="${(H - h2) * s}" x2="${a * s}" y2="${H * s}"/>`
+      : r1 + r2p;
+    return wrapSVG(base +
+      dimH(0, a * s, -14, a + " " + unit) +
+      dimH(0, W * s, H * s + 18, W + " " + unit) +
+      dimV(-14, 0, H * s, H + " " + unit, "left") +
+      dimV(W * s + 14, (H - h2) * s, H * s, h2 + " " + unit, "right"),
+      W * s, H * s, 52, 30, 64, 34);
+  };
+  return finish("L-shape (two rectangles)", unit, exact, render, [
+    { title: "Split the figure", note: "Cut straight down to make two rectangles.", part: null },
+    { title: "Tall rectangle", lines: [`A = ${a} × ${H} = ${a * H} ${unit}²`], part: 0 },
+    { title: "Find the hidden width", lines: [`width = ${W} − ${a} = ${c} ${unit}`], note: "The bottom rectangle's width isn't labeled — subtract to find it!", part: 1 },
+    { title: "Bottom rectangle", lines: [`A = ${c} × ${h2} = ${c * h2} ${unit}²`], part: 1 },
+    { title: "Add the parts", lines: [`${a * H} + ${c * h2} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `L-shape ${a}/${W} × ${H}/${h2}`, { terms: [{ p: [[0, 0], [a, 0], [a, H - h2], [W, H - h2], [W, H], [0, H]] }] });
+}
+
+/* ice-cream cone: triangle + semicircle below */
+function fCone() {
+  const unit = pick(UNITS);
+  const r = rnd(2, 4), b = 2 * r, T = rnd(4, 8);
+  const exact = b * T / 2 + PI * r * r / 2;
+  const s = Math.min(26, 220 / b, 150 / (T + r));
+  const render = h => {
+    const tri = `<polygon class="${pcls(0, h)}" points="${P([[r * s, 0], [0, T * s], [b * s, T * s]])}"/>`;
+    const semi = `<path class="${pcls(1, h)}" d="M0 ${T * s} A${r * s} ${r * s} 0 0 0 ${b * s} ${T * s} Z"/>`;
+    const base = h === null || h === undefined
+      ? `<path class="shape-main" d="M${r * s} 0 L0 ${T * s} A${r * s} ${r * s} 0 0 0 ${b * s} ${T * s} Z"/><line class="cut" x1="0" y1="${T * s}" x2="${b * s}" y2="${T * s}"/>`
+      : tri + semi;
+    return wrapSVG(base +
+      `<line class="cut" x1="${r * s}" y1="0" x2="${r * s}" y2="${T * s}"/>` +
+      `<text class="dlabel" x="${r * s + 6}" y="${T * s / 2}" text-anchor="start">${T} ${unit}</text>` +
+      dimH(0, b * s, (T + r) * s + 16, b + " " + unit),
+      b * s, (T + r) * s, 16, 12, 56, 32);
+  };
+  return finish("Triangle + semicircle (cone)", unit, exact, render, [
+    { title: "Split the figure", note: "A triangle sitting on half a circle.", part: null },
+    { title: "Triangle", lines: [`A = ½ × b × h = ½ × ${b} × ${T}`, `A = ${num(b * T / 2)} ${unit}²`], part: 0 },
+    { title: "Semicircle", lines: [`r = ${b} ÷ 2 = ${r}`, `A = (${PI} × ${r}²) ÷ 2 = ${num(PI * r * r)} ÷ 2`, `A = ${num(PI * r * r / 2)} ${unit}²`], part: 1 },
+    { title: "Add the parts", lines: [`${num(b * T / 2)} + ${num(PI * r * r / 2)} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `cone: triangle b=${b} h=${T} + semicircle r=${r}`, { terms: [{ p: [[r, 0], [0, T], [b, T]] }, { h: r, s: 1 }] });
+}
+
+/* rectangle + parallelogram below (hidden height) */
+function fRectPara() {
+  const unit = pick(UNITS);
+  const W = rnd(6, 10), H = rnd(5, 9), Pp = rnd(3, 6), S = rnd(2, 4);
+  const total = H + Pp;
+  const exact = W * H + W * Pp;
+  const s = Math.min(22, 280 / (W + S), 170 / total);
+  const render = h => {
+    const rect = `<polygon class="${pcls(0, h)}" points="${P([[0, 0], [W * s, 0], [W * s, H * s], [0, H * s]])}"/>`;
+    const para = `<polygon class="${pcls(1, h)}" points="${P([[0, H * s], [W * s, H * s], [(W + S) * s, total * s], [S * s, total * s]])}"/>`;
+    const base = h === null || h === undefined
+      ? `<polygon class="shape-main" points="${P([[0, 0], [W * s, 0], [W * s, H * s], [(W + S) * s, total * s], [S * s, total * s], [0, H * s]])}"/><line class="cut" x1="0" y1="${H * s}" x2="${W * s}" y2="${H * s}"/>`
+      : rect + para;
+    return wrapSVG(base +
+      dimH(0, W * s, -14, W + " " + unit) +
+      dimV(-14, 0, H * s, H + " " + unit, "left") +
+      dimV((W + S) * s + 16, 0, total * s, total + " " + unit, "right"),
+      (W + S) * s, total * s, 52, 30, 70, 14);
+  };
+  return finish("Rectangle + parallelogram", unit, exact, render, [
+    { title: "Split the figure", note: "A rectangle with a slanted parallelogram underneath.", part: null },
+    { title: "Rectangle", lines: [`A = ${W} × ${H} = ${W * H} ${unit}²`], part: 0 },
+    { title: "Find the hidden height", lines: [`height = ${total} − ${H} = ${Pp} ${unit}`], note: "Total height minus the rectangle's height.", part: 1 },
+    { title: "Parallelogram", lines: [`A = b × h = ${W} × ${Pp} = ${W * Pp} ${unit}²`], note: "Use the straight-up height, not the slanted side!", part: 1 },
+    { title: "Add the parts", lines: [`${W * H} + ${W * Pp} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `rect ${W}×${H} + parallelogram ${W}×${Pp}`, { terms: [{ p: [[0, 0], [W, 0], [W, H], [W + S, H + Pp], [S, H + Pp], [0, H]] }] });
+}
+
+/* right trapezoid: rectangle + right triangle */
+function fTrap() {
+  const unit = pick(UNITS);
+  const a = rnd(6, 10), extra = rnd(4, 8), b = a + extra, H = rnd(5, 9);
+  const exact = a * H + extra * H / 2;
+  const s = Math.min(20, 290 / b, 160 / H);
+  const render = h => {
+    const rect = `<polygon class="${pcls(0, h)}" points="${P([[0, 0], [a * s, 0], [a * s, H * s], [0, H * s]])}"/>`;
+    const tri = `<polygon class="${pcls(1, h)}" points="${P([[a * s, 0], [b * s, H * s], [a * s, H * s]])}"/>`;
+    const base = h === null || h === undefined
+      ? `<polygon class="shape-main" points="${P([[0, 0], [a * s, 0], [b * s, H * s], [0, H * s]])}"/><line class="cut" x1="${a * s}" y1="0" x2="${a * s}" y2="${H * s}"/>`
+      : rect + tri;
+    return wrapSVG(base +
+      dimH(0, a * s, -14, a + " " + unit) +
+      dimH(0, b * s, H * s + 18, b + " " + unit) +
+      dimV(-14, 0, H * s, H + " " + unit, "left"),
+      b * s, H * s, 52, 30, 14, 34);
+  };
+  return finish("Trapezoid (rect + triangle)", unit, exact, render, [
+    { title: "Split the figure", note: "Cut straight down from the short top side: a rectangle plus a right triangle.", part: null },
+    { title: "Rectangle", lines: [`A = ${a} × ${H} = ${a * H} ${unit}²`], part: 0 },
+    { title: "Find the triangle's base", lines: [`base = ${b} − ${a} = ${extra} ${unit}`], note: "Bottom minus top — the leftover piece.", part: 1 },
+    { title: "Triangle", lines: [`A = ½ × ${extra} × ${H} = ${num(extra * H / 2)} ${unit}²`], part: 1 },
+    { title: "Add the parts", lines: [`${a * H} + ${num(extra * H / 2)} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `trapezoid top=${a} bottom=${b} h=${H}`, { terms: [{ p: [[0, 0], [a, 0], [b, H], [0, H]] }] });
+}
+
+/* rocket: triangle + rectangle + semicircle (3 parts!) */
+function fRocket() {
+  const unit = pick(UNITS);
+  const W = pick([4, 6, 8]), r = W / 2, H = rnd(5, 9), T = rnd(3, 6);
+  const exact = W * T / 2 + W * H + PI * r * r / 2;
+  const s = Math.min(24, 200 / W, 150 / (T + H + r));
+  const render = h => {
+    const tri = `<polygon class="${pcls(0, h)}" points="${P([[0, T * s], [r * s, 0], [W * s, T * s]])}"/>`;
+    const rect = `<polygon class="${pcls(1, h)}" points="${P([[0, T * s], [W * s, T * s], [W * s, (T + H) * s], [0, (T + H) * s]])}"/>`;
+    const semi = `<path class="${pcls(2, h)}" d="M0 ${(T + H) * s} A${r * s} ${r * s} 0 0 0 ${W * s} ${(T + H) * s} Z"/>`;
+    const base = h === null || h === undefined
+      ? `<path class="shape-main" d="M${r * s} 0 L${W * s} ${T * s} V${(T + H) * s} A${r * s} ${r * s} 0 0 1 0 ${(T + H) * s} V${T * s} Z"/><line class="cut" x1="0" y1="${T * s}" x2="${W * s}" y2="${T * s}"/><line class="cut" x1="0" y1="${(T + H) * s}" x2="${W * s}" y2="${(T + H) * s}"/>`
+      : tri + rect + semi;
+    return wrapSVG(base +
+      dimH(0, W * s, -14, W + " " + unit) +
+      dimV(W * s + 16, 0, T * s, T + " " + unit, "right") +
+      dimV(W * s + 16, T * s, (T + H) * s, H + " " + unit, "right"),
+      W * s, (T + H + r) * s, 16, 30, 72, 14);
+  };
+  return finish("Rocket: 3 shapes!", unit, exact, render, [
+    { title: "Split the figure", note: "THREE pieces: triangle nose, rectangle body, semicircle bottom.", part: null },
+    { title: "Triangle nose", lines: [`A = ½ × ${W} × ${T} = ${num(W * T / 2)} ${unit}²`], part: 0 },
+    { title: "Rectangle body", lines: [`A = ${W} × ${H} = ${W * H} ${unit}²`], part: 1 },
+    { title: "Semicircle bottom", lines: [`r = ${W} ÷ 2 = ${num(r)}`, `A = (${PI} × ${num(r)}²) ÷ 2 = ${num(PI * r * r / 2)} ${unit}²`], part: 2 },
+    { title: "Add all three", lines: [`${num(W * T / 2)} + ${W * H} + ${num(PI * r * r / 2)} = ${num(exact)} ${unit}²`], part: -2 },
+  ], `rocket: tri+rect+semi, W=${W}`, { terms: [{ p: [[r, 0], [W, T], [W, T + H], [0, T + H], [0, T]] }, { h: r, s: 1 }] });
+}
+
+/* =========================================================
+   PROBABILITY (fraction answers)
+   ========================================================= */
+function fracQ(prompt, n, d, steps, missLabel, test) {
+  const [sn, sd] = simp(n, d);
+  return { t: "Probability", kind: "frac", prompt, fr: { n, d }, sn, sd,
+    ansText: sn + "/" + sd, steps, missLabel: "Probability: " + missLabel, test };
+}
+const COLORS = ["red", "blue", "green", "yellow", "purple", "orange"];
+
+function pBag() {
+  const n = pick([3, 3, 4]);
+  const cols = shuffle(COLORS).slice(0, n);
+  const counts = cols.map(() => rnd(2, 6));
+  const total = counts.reduce((a, c) => a + c, 0);
+  const i = rnd(0, n - 1);
+  const listText = counts.map((c, j) => `${c} ${cols[j]}`).join(", ");
+  const [sn, sd] = simp(counts[i], total);
+  return fracQ(
+    `A bag holds ${listText} marbles. One marble is pulled out at random. What is P(${cols[i]})?`,
+    counts[i], total, [
+      { title: "Probability = favorable ÷ total", lines: [`total = ${counts.join(" + ")} = ${total}`, `${cols[i]}: ${counts[i]} of them`], part: null },
+      { title: "Write the fraction", lines: [`P(${cols[i]}) = ${counts[i]}/${total}` + (sn !== counts[i] ? ` = ${sn}/${sd}` : "")], part: null },
+    ], `P(${cols[i]}) from bag ${listText}`, { f: "part", n: counts[i], d: total });
+}
+
+function pSpinner() {
+  const dist = pick([[3, 3, 2], [4, 2, 2], [4, 3, 1], [5, 2, 1], [3, 2, 3]]);
+  const cols = shuffle(COLORS).slice(0, 3);
+  const i = rnd(0, 2);
+  const [sn, sd] = simp(dist[i], 8);
+  return fracQ(
+    `A spinner has 8 equal sections: ${dist.map((c, j) => `${c} ${cols[j]}`).join(", ")}. You spin it once. What is P(${cols[i]})?`,
+    dist[i], 8, [
+      { title: "Probability = favorable ÷ total", lines: [`8 equal sections, ${dist[i]} are ${cols[i]}`], part: null },
+      { title: "Write the fraction", lines: [`P(${cols[i]}) = ${dist[i]}/8` + (sn !== dist[i] ? ` = ${sn}/${sd}` : "")], part: null },
+    ], `P(${cols[i]}) on spinner ${dist.join("/")}`, { f: "part", n: dist[i], d: 8 });
+}
+
+function pCube() {
+  const ev = pick([
+    { txt: "an even number", list: "2, 4, 6", n: 3 },
+    { txt: "an odd number", list: "1, 3, 5", n: 3 },
+    { txt: "a number greater than 4", list: "5, 6", n: 2 },
+    { txt: "a number less than 3", list: "1, 2", n: 2 },
+    { txt: "a multiple of 3", list: "3, 6", n: 2 },
+    { txt: "a 5", list: "just 5", n: 1 },
+    { txt: "a 1 or a 2", list: "1, 2", n: 2 },
+  ]);
+  const [sn, sd] = simp(ev.n, 6);
+  return fracQ(
+    `You roll a number cube (1–6) once. What is P(${ev.txt})?`,
+    ev.n, 6, [
+      { title: "Count the winners", lines: [`${ev.txt}: ${ev.list} → ${ev.n} of 6`], part: null },
+      { title: "Write the fraction", lines: [`P = ${ev.n}/6` + (sn !== ev.n ? ` = ${sn}/${sd}` : "")], part: null },
+    ], `P(${ev.txt}) on a number cube`, { f: "part", n: ev.n, d: 6 });
+}
+
+function pComplement() {
+  if (Math.random() < 0.5) {
+    const d = rnd(5, 12), n = rnd(1, d - 1);
+    const [sn, sd] = simp(d - n, d);
+    return fracQ(
+      `The probability it rains tomorrow is ${n}/${d}. What is P(no rain)?`,
+      d - n, d, [
+        { title: "Complement rule", lines: [`P(not X) = 1 − P(X)`, `P(no rain) = 1 − ${n}/${d} = ${d - n}/${d}` + (sn !== d - n ? ` = ${sn}/${sd}` : "")], note: "An event and its opposite always add to 1.", part: null },
+      ], `complement of ${n}/${d}`, { f: "comp", n, d });
+  }
+  const cols = shuffle(COLORS).slice(0, 3);
+  const counts = cols.map(() => rnd(2, 6));
+  const total = counts.reduce((a, c) => a + c, 0);
+  const i = rnd(0, 2);
+  const [sn, sd] = simp(total - counts[i], total);
+  return fracQ(
+    `A bag holds ${counts.map((c, j) => `${c} ${cols[j]}`).join(", ")} marbles. One is pulled at random. What is P(NOT ${cols[i]})?`,
+    total - counts[i], total, [
+      { title: "Complement = everything else", lines: [`total = ${total}, ${cols[i]} = ${counts[i]}`, `not ${cols[i]}: ${total} − ${counts[i]} = ${total - counts[i]}`], part: null },
+      { title: "Write the fraction", lines: [`P(not ${cols[i]}) = ${total - counts[i]}/${total}` + (sn !== total - counts[i] ? ` = ${sn}/${sd}` : "")], part: null },
+    ], `P(not ${cols[i]}) from bag`, { f: "comp", n: counts[i], d: total });
+}
+
+function pIndep() {
+  const cols = shuffle(COLORS).slice(0, 2);
+  const a = rnd(2, 5), b = rnd(2, 5);
+  const t = a + b + rnd(1, 3);
+  const n = a * b, d = t * t;
+  const [sn, sd] = simp(n, d);
+  return fracQ(
+    `A bag holds ${a} ${cols[0]} and ${b} ${cols[1]} marbles (and ${t - a - b} white). You pull one marble, put it BACK, then pull again. What is P(${cols[0]}, then ${cols[1]})?`,
+    n, d, [
+      { title: "With replacement = independent", lines: [`P(${cols[0]}) = ${a}/${t}`, `P(${cols[1]}) = ${b}/${t}`], note: "Putting it back means the second pull is the same as the first.", part: null },
+      { title: "Multiply", lines: [`${a}/${t} × ${b}/${t} = ${n}/${d}` + (sn !== n ? ` = ${sn}/${sd}` : "")], part: null },
+    ], `P(${cols[0]} then ${cols[1]}), with replacement`, { f: "indep", a, b, t });
+}
+
+function pDepend() {
+  const col = pick(COLORS);
+  const a = rnd(3, 6), t = a + rnd(3, 7);
+  const n = a * (a - 1), d = t * (t - 1);
+  const [sn, sd] = simp(n, d);
+  return fracQ(
+    `A bag holds ${a} ${col} marbles out of ${t} total. You pull one marble and do NOT put it back, then pull again. What is P(${col}, then ${col} again)?`,
+    n, d, [
+      { title: "No replacement = dependent", lines: [`1st pull: P = ${a}/${t}`, `2nd pull: one ${col} is GONE → ${a - 1}/${t - 1}`], note: "Both numbers drop by 1 after you keep the first marble.", part: null },
+      { title: "Multiply", lines: [`${a}/${t} × ${a - 1}/${t - 1} = ${n}/${d}` + (sn !== n ? ` = ${sn}/${sd}` : "")], part: null },
+    ], `P(${col} twice), no replacement`, { f: "dep", a, t });
+}
+
+/* =========================================================
+   INEQUALITIES (multiple choice)
+   ========================================================= */
+const SYMS = ["<", ">", "≤", "≥"];
+const flip = s => ({ "<": ">", ">": "<", "≤": "≥", "≥": "≤" })[s];
+const ineqStr = (sym, v) => `x ${sym} ${fmtI(v)}`;
+function mcIneq(qs, sol, sym, why, wrongVal, test) {
+  const o = [ineqStr(sym, sol), ineqStr(flip(sym), sol), ineqStr(sym, wrongVal), ineqStr(flip(sym), wrongVal)];
+  return { t: "Inequalities", kind: "mc", q: "Solve:  " + qs, qmath: qs, o, why,
+    missLabel: "Inequalities: " + qs, ansText: o[0], test };
+}
+
+function iOneStep() {
+  const sym = pick(SYMS), s0 = rnd(-9, 9), v = pick(["add", "sub", "mul", "div"]);
+  if (v === "add") {
+    const a = rnd(2, 12);
+    return mcIneq(`x + ${a} ${sym} ${fmtI(s0 + a)}`, s0, sym,
+      `Subtract ${a} from both sides: x ${sym} ${fmtI(s0 + a)} − ${a} → x ${sym} ${fmtI(s0)}. Adding or subtracting never flips the sign.`,
+      s0 + 2 * a, { f: "ineq", sol: s0, sym });
+  }
+  if (v === "sub") {
+    const a = rnd(2, 12);
+    return mcIneq(`x − ${a} ${sym} ${fmtI(s0 - a)}`, s0, sym,
+      `Add ${a} to both sides: x ${sym} ${fmtI(s0 - a)} + ${a} → x ${sym} ${fmtI(s0)}.`,
+      s0 - 2 * a, { f: "ineq", sol: s0, sym });
+  }
+  if (v === "mul") {
+    const a = rnd(2, 9);
+    const w = s0 === 0 ? a : a * s0;
+    return mcIneq(`${a}x ${sym} ${fmtI(a * s0)}`, s0, sym,
+      `Divide both sides by ${a}: x ${sym} ${fmtI(a * s0)} ÷ ${a} → x ${sym} ${fmtI(s0)}. Dividing by a POSITIVE keeps the sign.`,
+      w, { f: "ineq", sol: s0, sym });
+  }
+  const a = rnd(2, 6), c = rnd(-6, 6);
+  const sol = a * c;
+  const w = c === 0 ? a : c;
+  return mcIneq(`x ÷ ${a} ${sym} ${fmtI(c)}`, sol, sym,
+    `Multiply both sides by ${a}: x ${sym} ${fmtI(c)} × ${a} → x ${sym} ${fmtI(sol)}. Multiplying by a POSITIVE keeps the sign.`,
+    w === sol ? sol + a : w, { f: "ineq", sol, sym });
+}
+
+function iFlip() {
+  const a = rnd(2, 6), s0 = rnd(-7, 7), sym = pick(SYMS);
+  const w = s0 === -s0 ? s0 + a : -s0;  /* s0=0 → use a different wrong value */
+  return mcIneq(`−${a}x ${sym} ${fmtI(-a * s0)}`, s0, flip(sym),
+    `Divide both sides by −${a} — and dividing by a NEGATIVE flips the sign: x ${flip(sym)} ${fmtI(s0)}.`,
+    w === s0 ? s0 + a : w, { f: "ineq", sol: s0, sym: flip(sym) });
+}
+
+function iTwoStep() {
+  const a = rnd(2, 6), s0 = rnd(-6, 6), b = rnd(2, 12), sym = pick(SYMS);
+  const minus = Math.random() < 0.5;
+  const c = minus ? a * s0 - b : a * s0 + b;
+  const qs = `${a}x ${minus ? "−" : "+"} ${b} ${sym} ${fmtI(c)}`;
+  let w = a * s0;
+  if (w === s0) w = s0 + b;
+  return mcIneq(qs, s0, sym,
+    `${minus ? "Add" : "Subtract"} ${b} ${minus ? "to" : "from"} both sides → ${a}x ${sym} ${fmtI(a * s0)}, then divide by ${a} (positive — no flip) → x ${sym} ${fmtI(s0)}.`,
+    w, { f: "ineq", sol: s0, sym });
+}
+
+/* =========================================================
+   INTEGERS & EQUATIONS (typed, negatives allowed)
+   ========================================================= */
+function intQ(qs, exact, steps, missLabel, test, prompt) {
+  return { t: "Integers & equations", kind: "int", prompt: prompt || null, qmath: qs, exact,
+    ansText: fmtI(exact), steps, missLabel: "Integers: " + missLabel, test };
+}
+const wrapNeg = v => v < 0 ? `(−${-v})` : String(v);
+
+function nAddSub() {
+  const a = rnd(-30, 30), b = rnd(2, 30) * pick([1, -1]);
+  const op = pick(["+", "−"]);
+  const exact = op === "+" ? a + b : a - b;
+  const qs = `${fmtI(a)} ${op} ${wrapNeg(b)} = ?`;
+  const lines = [];
+  if (op === "−" && b < 0) lines.push(`Keep–Change–Change: ${fmtI(a)} − (−${-b}) = ${fmtI(a)} + ${-b}`, `= ${fmtI(exact)}`);
+  else if (op === "−") lines.push(`${fmtI(a)} − ${b} = ${fmtI(a)} + (−${b})`, `= ${fmtI(exact)}`);
+  else if (b < 0) lines.push(`Adding a negative = subtracting: ${fmtI(a)} − ${-b}`, `= ${fmtI(exact)}`);
+  else lines.push(`${fmtI(a)} + ${b} = ${fmtI(exact)}`);
+  return intQ(qs, exact, [
+    { title: "Watch the signs", lines, note: op === "−" && b < 0 ? "Subtracting a negative turns into ADDING." : "Different signs? Subtract the small from the big and keep the bigger number's sign.", part: null },
+  ], qs.replace(" = ?", ""), { f: "int", expr: `(${a})${op === "+" ? "+" : "-"}(${b})` });
+}
+
+function nMulDiv() {
+  const a = rnd(2, 12) * pick([1, -1]), b = rnd(2, 12) * pick([1, -1]);
+  if (Math.random() < 0.5) {
+    const exact = a * b;
+    const qs = `${fmtI(a)} × ${wrapNeg(b)} = ?`;
+    return intQ(qs, exact, [
+      { title: "Multiply, then set the sign", lines: [`${Math.abs(a)} × ${Math.abs(b)} = ${Math.abs(exact)}`, `${a < 0 === b < 0 ? "Same signs → positive" : "Different signs → negative"}: ${fmtI(exact)}`], part: null },
+    ], qs.replace(" = ?", ""), { f: "int", expr: `(${a})*(${b})` });
+  }
+  const exact = a, prod = a * b;
+  const qs = `${fmtI(prod)} ÷ ${wrapNeg(b)} = ?`;
+  return intQ(qs, exact, [
+    { title: "Divide, then set the sign", lines: [`${Math.abs(prod)} ÷ ${Math.abs(b)} = ${Math.abs(a)}`, `${prod < 0 === b < 0 ? "Same signs → positive" : "Different signs → negative"}: ${fmtI(exact)}`], part: null },
+  ], qs.replace(" = ?", ""), { f: "int", expr: `(${prod})/(${b})` });
+}
+
+function nTwoStep() {
+  const a = pick([2, 3, 4, 5, -2, -3, -4]), x = rnd(-9, 9), b = rnd(1, 12) * pick([1, -1]);
+  const c = a * x + b;
+  const qs = `${fmtI(a)}x ${b < 0 ? "− " + (-b) : "+ " + b} = ${fmtI(c)}`;
+  return intQ(qs, x, [
+    { title: b < 0 ? "Add " + (-b) + " to both sides" : "Subtract " + b + " from both sides", lines: [`${fmtI(a)}x = ${fmtI(c)} ${b < 0 ? "+ " + (-b) : "− " + b}`, `${fmtI(a)}x = ${fmtI(a * x)}`], part: null },
+    { title: "Divide both sides by " + fmtI(a), lines: [`x = ${fmtI(a * x)} ÷ ${wrapNeg(a)}`, `x = ${fmtI(x)}`], note: a < 0 ? "Dividing a by a negative: watch the sign of the answer!" : null, part: null },
+  ], "solve " + qs, { f: "int", expr: `(${c}-(${b}))/(${a})` }, "Solve for x:");
+}
+
+/* ================= quiz builder ================= */
+const SHADED = [sRectTri, sTriCircle, sCircleTrap, sSquarePara, sFlag, sRing, sRectCircle];
+const CIRC = [cCirc, cFence, cFerris, cBike, cPond, cHoop];
+const COMPOUND = [fStadium, fHouse, fLshape, fCone, fRectPara, fTrap, fRocket];
+const PROB = [pBag, pSpinner, pCube, pComplement, pIndep, pDepend];
+const INEQ = [iOneStep, iFlip, iTwoStep];
+const INTS = [nAddSub, nMulDiv, nTwoStep];
+
+function buildQuiz() {
+  return shuffle([
+    ...SHADED.map(f => f()),
+    ...CIRC.map(f => f()),
+    ...shuffle(COMPOUND).slice(0, 3).map(f => f()),
+    ...shuffle(PROB).slice(0, 3).map(f => f()),
+    ...INEQ.map(f => f()),
+    ...INTS.map(f => f()),
+  ]);
+}
+const QUIZ_LEN = 25;
+
+/* ================= storage (same pattern as the other apps) ================= */
+const KEY = "vj-math-review-history";
+const API = "/api/scores";
+let apiSynced = false;
+
+function loadLocal() {
+  try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; }
+}
+function saveLocal(h) {
+  try { localStorage.setItem(KEY, JSON.stringify(h)); } catch {}
+}
+function loadHistory() { return loadLocal(); }
+function postRecord(rec) {
+  return fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(rec) });
+}
+function addRecord(rec) {
+  const h = loadLocal(); h.push(rec); saveLocal(h);
+  postRecord(rec).catch(() => {});
+}
+function clearHistory() {
+  saveLocal([]);
+  if (apiSynced) fetch(API, { method: "DELETE" }).catch(() => {});
+}
+async function syncApi() {
+  try {
+    const res = await fetch(API);
+    if (!res.ok) throw new Error();
+    const server = await res.json();
+    if (!Array.isArray(server)) throw new Error();
+    const seen = new Set(server.map(r => r.id || r.date));
+    const missing = loadLocal().filter(r => !seen.has(r.id || r.date));
+    for (const r of missing) { try { await postRecord(r); } catch {} }
+    const merged = server.concat(missing).sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    saveLocal(merged);
+    apiSynced = true;
+    if (state.screen === "home" || state.screen === "history") render();
+  } catch { apiSynced = false; }
+}
+
+/* ================= state ================= */
+const app = document.getElementById("app");
+const navBtn = document.getElementById("navBtn");
+let state = { screen: "home", quiz: [], idx: 0, right: 0, misses: [], locked: false };
+let timers = [];
+function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+function go(screen) {
+  clearTimers();
+  state.screen = screen;
+  if (screen === "home" || screen === "history") syncApi();
+  render();
+  window.scrollTo(0, 0);
+}
+
+navBtn.addEventListener("click", () => {
+  if (state.screen === "quiz") {
+    if (confirm("Quit this quiz? It won't be scored.")) go("home");
+  } else if (state.screen === "home") {
+    go("history");
+  } else {
+    go("home");
+  }
+});
+
+function pctClass(p) { return p >= 90 ? "pct-good" : p >= 70 ? "pct-mid" : "pct-low"; }
+
+function startQuiz() {
+  state.quiz = buildQuiz();
+  state.idx = 0;
+  state.right = 0;
+  state.misses = [];
+  go("quiz");
+}
+
+function render() {
+  navBtn.textContent = state.screen === "quiz" ? "Quit" : state.screen === "home" ? "History" : "Home";
+  if (state.screen === "home") renderHome();
+  else if (state.screen === "quiz") renderQuiz();
+  else if (state.screen === "results") renderResults();
+  else if (state.screen === "study") renderStudy();
+  else renderHistory();
+}
+
+function renderHome() {
+  const h = loadHistory();
+  const best = h.length ? Math.max(...h.map(r => r.percent)) : null;
+  const avg = h.length ? Math.round(h.reduce((a, r) => a + r.percent, 0) / h.length) : null;
+  app.innerHTML = `
+    <div class="card hero">
+      <h1>The big review, VJ.</h1>
+      <p>Every round is <b>25 fresh questions</b> covering the whole year — heavy on the newest stuff (shaded regions and circumference word problems), plus compound areas, probability, inequalities, and integers. Miss one and you get the full worked solution.</p>
+      <ul class="topic-list">
+        <li>Shaded regions ×7</li><li>Circumference ×6</li><li>Compound areas ×3</li><li>Probability ×3</li><li>Inequalities ×3</li><li>Integers ×3</li>
+      </ul>
+      <p style="color:var(--muted);font-size:14px;margin-top:10px">Use π = 3.14 · round to 2 decimal places when needed.</p>
+      <div class="btn-row"><button class="btn btn-primary btn-wide" id="startBtn">Start a practice test</button></div>
+      <div class="btn-row"><button class="btn btn-wide" id="studyBtn">Read the cheat sheet</button></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="num mono">${h.length}</div><div class="lbl">Tests</div></div>
+      <div class="stat"><div class="num mono">${best === null ? "–" : best + "%"}</div><div class="lbl">Best</div></div>
+      <div class="stat"><div class="num mono">${avg === null ? "–" : avg + "%"}</div><div class="lbl">Average</div></div>
+    </div>`;
+  document.getElementById("startBtn").addEventListener("click", startQuiz);
+  document.getElementById("studyBtn").addEventListener("click", () => go("study"));
+}
+
+function advance() {
+  clearTimers();
+  state.idx++;
+  if (state.idx >= state.quiz.length) finishQuiz();
+  else render();
+}
+
+function stepsHTML(q) {
+  let n = 0;
+  return `<div class="steps">${q.steps.map(st => {
+    const isTotal = st.part === -2;
+    if (st.lines) n++;
+    const sfig = q.render ? `<div class="sfig">${q.render(st.part === -2 || st.part === null ? undefined : st.part)}</div>` : "";
+    return `<div class="step ${isTotal ? "total" : ""}">
+      ${sfig}
+      <div class="sbody">
+        <div class="stitle"><span class="snum">${st.lines ? "Step " + n + " — " : ""}</span>${esc(st.title)}</div>
+        ${(st.lines || []).map(l => `<div class="sline">${esc(l)}</div>`).join("")}
+        ${st.note ? `<div class="snote">${esc(st.note)}</div>` : ""}
+      </div>
+    </div>`;
+  }).join("")}</div>`;
+}
+
+const HINTS = {
+  fig: "Split it into shapes you know — add the pieces, or subtract the hole!",
+  num: "Write the formula first: C = πd = 2πr.",
+  frac: "Answer as a fraction — top number, then bottom number.",
+  int: "Watch the signs! Use the ± button for negative answers.",
+  mc: "Tap the best answer.",
+};
+
+function renderQuiz() {
+  const q = state.quiz[state.idx];
+  const n = state.quiz.length;
+  const kind = q.kind;
+
+  let answerHTML;
+  let opts = [];
+  if (kind === "mc") {
+    opts = shuffle(q.o.map((text, i) => ({ text, correct: i === 0 })));
+    answerHTML = `<div class="opts">${opts.map((o, i) =>
+      `<button class="opt" data-i="${i}">${esc(o.text)}</button>`).join("")}</div>`;
+  } else if (kind === "frac") {
+    answerHTML = `<div class="answer-line">
+        <input class="answer frac" id="fnum" type="text" inputmode="numeric" autocomplete="off" aria-label="numerator (top number)" placeholder="top">
+        <span class="fracslash">/</span>
+        <input class="answer frac" id="fden" type="text" inputmode="numeric" autocomplete="off" aria-label="denominator (bottom number)" placeholder="bottom">
+        <button class="btn btn-primary" id="checkBtn">Check</button>
+      </div>`;
+  } else if (kind === "int") {
+    answerHTML = `<div class="answer-line">
+        <button class="btn pmbtn" id="pmBtn" aria-label="make the answer negative or positive">±</button>
+        <input class="answer" id="ansInput" type="text" inputmode="numeric" autocomplete="off" placeholder="Answer" aria-label="answer">
+        <button class="btn btn-primary" id="checkBtn">Check</button>
+      </div>`;
+  } else {
+    const chip = q.kind === "fig" ? esc(q.unit) + "²" : esc(q.chip || "");
+    answerHTML = `<div class="answer-line">
+        ${q.chipPre ? `<span class="unitchip">${esc(q.chipPre)}</span>` : ""}
+        <input class="answer" id="ansInput" type="text" inputmode="decimal" autocomplete="off" placeholder="${kind === "fig" ? "Area" : "Answer"}" aria-label="answer">
+        ${chip ? `<span class="unitchip">${chip}</span>` : ""}
+        <button class="btn btn-primary" id="checkBtn">Check</button>
+      </div>`;
+  }
+
+  app.innerHTML = `
+    <div class="progress">
+      <div class="label"><span>Question ${state.idx + 1} of ${n}</span><span>${esc(q.t)}</span></div>
+      <div class="bar"><div style="width:${((state.idx + 1) / n) * 100}%"></div></div>
+    </div>
+    <div class="card">
+      <div class="qtopic">${esc(q.kind === "fig" ? q.fam : q.t)}</div>
+      ${kind === "mc" ? `<p class="qtext big">${esc(q.q)}</p>`
+        : kind === "fig" ? `<p class="qtext">${q.prompt}</p><div class="figbox">${q.render()}</div>`
+        : q.qmath ? `<p class="qtext">${esc(q.prompt || "Work it out:")}</p><div class="qmath">${esc(q.qmath)}</div>`
+        : `<p class="qtext">${q.prompt}</p>`}
+      ${answerHTML}
+      <div class="feedback neutral" id="feedback">${HINTS[kind]}</div>
+      <div id="stepsSlot"></div>
+    </div>`;
+
+  const feedback = document.getElementById("feedback");
+  const stepsSlot = document.getElementById("stepsSlot");
+
+  const miss = aShown => state.misses.push({ q: q.missLabel || q.q, a: aShown, c: q.ansText });
+
+  const finishRight = () => {
+    state.right++;
+    feedback.className = "feedback right";
+    feedback.innerHTML = `Correct! ✓ ${esc(q.ansText)}` +
+      (q.steps ? ` <button class="navlink" id="showSteps">See the breakdown</button>` : "") +
+      ` <button class="navlink" id="nextBtn2" style="float:right">Next →</button>`;
+    if (q.steps) document.getElementById("showSteps").addEventListener("click", () => {
+      stepsSlot.innerHTML = stepsHTML(q);
+      const b = document.getElementById("showSteps"); if (b) b.remove();
+    });
+    document.getElementById("nextBtn2").addEventListener("click", advance);
+    later(() => { if (state.quiz[state.idx] === q && !stepsSlot.innerHTML) { state.locked = false; advance(); } }, 2200);
+  };
+  const finishWrong = aShown => {
+    miss(aShown);
+    feedback.className = "feedback wrong";
+    feedback.innerHTML = `Not quite — the answer is <b class="mono">${esc(q.ansText)}</b>.` +
+      (q.steps ? " Here's the whole breakdown:" : "") +
+      ` <button class="navlink" id="nextBtn">Next →</button>`;
+    if (q.steps) stepsSlot.innerHTML = stepsHTML(q);
+    document.getElementById("nextBtn").addEventListener("click", advance);
+  };
+
+  if (kind === "mc") {
+    const showWhy = ok => {
+      feedback.className = "feedback " + (ok ? "right" : "wrong");
+      feedback.innerHTML = (ok ? "Correct! ✓" : `Not quite — the answer is <b>${esc(q.o[0])}</b>.`) +
+        `<span class="why">${esc(q.why)}</span>` +
+        (ok ? "" : ` <button class="navlink" id="nextBtn">Next →</button>`);
+      if (!ok) document.getElementById("nextBtn").addEventListener("click", advance);
+    };
+    app.querySelectorAll(".opt").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (state.locked) return;
+        state.locked = true;
+        const chosen = opts[Number(btn.dataset.i)];
+        app.querySelectorAll(".opt").forEach((b, i) => {
+          b.disabled = true;
+          if (opts[i].correct) b.classList.add("right");
+          else if (b === btn) b.classList.add("wrong");
+          else b.classList.add("dim");
+        });
+        if (chosen.correct) {
+          state.right++;
+          showWhy(true);
+          later(() => { state.locked = false; advance(); }, 1500);
+        } else {
+          miss(chosen.text);
+          showWhy(false);
+          state.locked = false;
+        }
+      });
+    });
+  } else if (kind === "frac") {
+    const fn = document.getElementById("fnum"), fd = document.getElementById("fden");
+    const checkBtn = document.getElementById("checkBtn");
+    const submit = () => {
+      if (state.locked) return;
+      const un = parseInt(fn.value.trim().replace(/−/g, "-"), 10);
+      const ud = parseInt(fd.value.trim().replace(/−/g, "-"), 10);
+      if (!Number.isInteger(un) || !Number.isInteger(ud) || ud <= 0 || un < 0) { (Number.isInteger(un) ? fd : fn).focus(); return; }
+      state.locked = true;
+      fn.disabled = fd.disabled = checkBtn.disabled = true;
+      const ok = un * q.fr.d === ud * q.fr.n;
+      if (ok) {
+        const simplified = un === q.sn && ud === q.sd;
+        finishRight();
+        if (!simplified) feedback.insertAdjacentHTML("beforeend", `<span class="why">Right value! Simplest form is ${q.sn}/${q.sd}.</span>`);
+      } else {
+        finishWrong(un + "/" + ud);
+      }
+    };
+    checkBtn.addEventListener("click", submit);
+    [fn, fd].forEach(el => el.addEventListener("keydown", e => { if (e.key === "Enter") submit(); }));
+  } else {
+    const input = document.getElementById("ansInput");
+    const checkBtn = document.getElementById("checkBtn");
+    const pmBtn = document.getElementById("pmBtn");
+    if (pmBtn) pmBtn.addEventListener("click", () => {
+      if (/^[-−]/.test(input.value)) input.value = input.value.replace(/^[-−]/, "");
+      else input.value = "−" + input.value;
+      input.focus();
+    });
+    const submit = () => {
+      if (state.locked) return;
+      const raw = input.value.trim().replace(/−/g, "-").replace(/[$,\s]/g, "").replace(/[^0-9.\-]/g, "");
+      if (!raw || raw === "-" || raw === ".") { input.focus(); return; }
+      const user = Number(raw);
+      if (!isFinite(user)) { input.focus(); return; }
+      if (kind === "int" && !Number.isInteger(user)) { input.focus(); return; }
+      state.locked = true;
+      input.disabled = checkBtn.disabled = true;
+      const ok = kind === "int" ? user === q.exact
+        : q.ok ? q.ok(user)
+        : (Math.abs(user - q.ans2) < 0.005 || Math.abs(user - q.exact) < 0.02);
+      if (ok) finishRight();
+      else {
+        const shown = kind === "fig" ? raw + " " + q.unit + "²" : raw;
+        finishWrong(shown);
+      }
+    };
+    checkBtn.addEventListener("click", submit);
+    input.addEventListener("keydown", e => { if (e.key === "Enter") submit(); });
+  }
+  state.locked = false;
+}
+
+function finishQuiz() {
+  clearTimers();
+  const total = state.quiz.length;
+  const percent = Math.round((state.right / total) * 100);
+  const rec = {
+    id: Date.now() + "-" + Math.random().toString(36).slice(2, 8),
+    date: new Date().toISOString(),
+    right: state.right, total, percent,
+    misses: state.misses.map(m => ({ q: String(m.q).slice(0, 190), a: String(m.a).slice(0, 70), c: String(m.c).slice(0, 110) })),
+  };
+  addRecord(rec);
+  state.lastResult = rec;
+  go("results");
+}
+
+function missListHTML(misses) {
+  return misses.length
+    ? `<ul class="misslist">${misses.map(m =>
+        `<li><span class="q">${esc(m.q)}</span>
+         <span class="a">${esc(m.a)}</span> → <span class="cor">${esc(m.c)}</span></li>`).join("")}</ul>`
+    : `<div class="allgood">Nothing missed — a flawless round!</div>`;
+}
+
+function renderResults() {
+  const r = state.lastResult;
+  const msg = r.percent === 100 ? "Perfect 25 — you own this whole test! \u{1F3C6}"
+    : r.percent >= 90 ? "Excellent — you're ready!"
+    : r.percent >= 70 ? "Strong — review the misses below."
+    : "Keep training — read the cheat sheet, then go again.";
+  app.innerHTML = `
+    <div class="card score-hero">
+      <div class="score-big mono" style="color:${r.percent >= 90 ? "var(--good)" : r.percent >= 70 ? "var(--accent)" : "var(--bad)"}">${r.right}/${r.total}</div>
+      <div class="score-msg">${msg}</div>
+      <div class="score-sub">${r.percent}% · saved to history</div>
+      <div class="btn-row">
+        <button class="btn" id="studyBtn">Cheat sheet</button>
+        <button class="btn btn-primary" id="againBtn">New test</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2 style="font-size:20px">${r.misses.length ? "What you missed" : "Clean sheet"}</h2>
+      ${missListHTML(r.misses)}
+    </div>`;
+  document.getElementById("againBtn").addEventListener("click", startQuiz);
+  document.getElementById("studyBtn").addEventListener("click", () => go("study"));
+  if (r.percent >= 90) confetti();
+}
+
+function renderHistory() {
+  const h = loadHistory().slice().reverse();
+  const missCount = {};
+  h.forEach(r => (r.misses || []).forEach(m => {
+    const k = String(m.q).split(":")[0];
+    missCount[k] = (missCount[k] || 0) + 1;
+  }));
+  const worst = Object.entries(missCount).sort((a, b) => b[1] - a[1]).slice(0, 6);
+  const maxMiss = worst.length ? worst[0][1] : 1;
+
+  const rows = h.map(r => {
+    const d = new Date(r.date);
+    const date = d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+    const time = d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+    return `<details class="hrow">
+        <summary>
+          <div class="hdate">${date}<small>${time}</small></div>
+          <span class="hscore">${r.right}/${r.total}</span>
+          <span class="hpct ${pctClass(r.percent)}">${r.percent}%</span>
+        </summary>
+        <div class="hdetail">${missListHTML(r.misses || [])}</div>
+      </details>`;
+  }).join("");
+
+  app.innerHTML = `
+    <div class="card">
+      <h2 style="font-size:22px">Test history</h2>
+      <p style="color:var(--muted);font-size:14px;margin:6px 0 4px">Tap a test to see exactly what was missed.</p>
+      ${h.length ? rows : `<div class="empty">No tests yet — take your first one!</div>`}
+    </div>
+    ${worst.length ? `<div class="card trouble"><h2 style="font-size:22px">Trouble topics</h2>
+      <p style="color:var(--muted);font-size:14px;margin:6px 0 10px">Missed most often — drill these before the test.</p>
+      ${worst.map(([qq, nn]) =>
+        `<div class="tlabel"><span style="max-width:75%">${esc(qq)}</span><span class="mono">${nn}×</span></div>
+         <div class="tbar"><div style="width:${(nn / maxMiss) * 100}%"></div></div>`).join("")}</div>` : ""}
+    <div class="btn-row"><button class="btn btn-primary btn-wide" id="startBtn">Start a practice test</button></div>
+    ${h.length ? `<div class="btn-row"><button class="btn btn-danger btn-wide" id="clearBtn">Clear history</button></div>` : ""}
+    <p class="footnote">${apiSynced
+      ? "Scores sync — open this same link on any phone or computer to see them."
+      : "History is saved on this device."}</p>`;
+
+  document.getElementById("startBtn").addEventListener("click", startQuiz);
+  const clearBtn = document.getElementById("clearBtn");
+  if (clearBtn) clearBtn.addEventListener("click", () => {
+    if (confirm("Delete all saved scores? This can't be undone.")) { clearHistory(); render(); }
+  });
+}
+
+function renderStudy() {
+  app.innerHTML = `
+    <div class="card study">
+      <h2 style="font-size:22px;margin-bottom:4px">The big-review cheat sheet</h2>
+      <h3>Circles — the formulas</h3>
+      <ul>
+        <li>Circumference: <code>C = π × d</code> or <code>C = 2 × π × r</code> (π = 3.14)</li>
+        <li>Area: <code>A = π × r²</code> · and <code>r = diameter ÷ 2</code></li>
+        <li><b>The #1 trap:</b> halve the diameter BEFORE squaring. d = 26 → r = 13 → r² = 169.</li>
+      </ul>
+      <h3>Circumference word problems — the playbook</h3>
+      <ul>
+        <li><b>Fencing / border cost:</b> find C, then multiply by the price per foot.</li>
+        <li><b>Wheel distance:</b> one revolution = one circumference. Distance = C × revolutions.</li>
+        <li><b>How many revolutions:</b> total distance ÷ C. (Convert km to ft first: 1 km ≈ 3,280 ft.)</li>
+        <li><b>Halfway around:</b> C ÷ 2. Compare with the straight path (the diameter).</li>
+        <li><b>Given C, find d:</b> work backwards — d = C ÷ π.</li>
+      </ul>
+      <h3>Shaded regions</h3>
+      <ul>
+        <li>Shaded area = <b>whole shape − cut-out</b>. Find both areas, then SUBTRACT.</li>
+        <li>Works for any hole: triangle notch, circle, trapezoid, parallelogram.</li>
+      </ul>
+      <h3>Compound areas</h3>
+      <ul>
+        <li>Split into shapes you know, find hidden sides, add the pieces.</li>
+        <li>Rectangle <code>l × w</code> · Triangle <code>½bh</code> · Parallelogram <code>b × h</code> · Trapezoid <code>½(b₁+b₂)h</code> · Semicircle <code>(πr²) ÷ 2</code></li>
+      </ul>
+      <h3>Probability</h3>
+      <ul>
+        <li><code>P = favorable ÷ total</code> · Complement: <code>P(not X) = 1 − P(X)</code></li>
+        <li>"Then" means MULTIPLY. With replacement: same fractions. Without: both numbers drop by 1.</li>
+      </ul>
+      <h3>Inequalities</h3>
+      <ul>
+        <li>Solve like an equation — but <b>×/÷ by a negative FLIPS the sign</b>.</li>
+      </ul>
+      <h3>Integers</h3>
+      <ul>
+        <li>Subtracting a negative = adding: <code>5 − (−3) = 8</code> (Keep–Change–Change).</li>
+        <li>× and ÷: same signs → positive, different signs → negative.</li>
+      </ul>
+      <div class="btn-row"><button class="btn btn-primary btn-wide" id="startBtn">I'm ready — test me</button></div>
+    </div>`;
+  document.getElementById("startBtn").addEventListener("click", startQuiz);
+}
+
+/* ================= confetti ================= */
+function confetti() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv = document.getElementById("confetti");
+  cv.hidden = false;
+  cv.width = innerWidth; cv.height = innerHeight;
+  const ctx = cv.getContext("2d");
+  const colors = ["#0D9488", "#2DD4BF", "#1E8A4C", "#3B6FD4", "#E0A131"];
+  const bits = Array.from({ length: 120 }, () => ({
+    x: Math.random() * cv.width, y: -20 - Math.random() * cv.height * 0.5,
+    vy: 2 + Math.random() * 3, vx: -1 + Math.random() * 2,
+    s: 5 + Math.random() * 6, r: Math.random() * Math.PI, vr: -0.1 + Math.random() * 0.2,
+    col: colors[Math.floor(Math.random() * colors.length)],
+  }));
+  let frames = 0;
+  (function loop() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    for (const b of bits) {
+      b.x += b.vx; b.y += b.vy; b.r += b.vr;
+      ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.r);
+      ctx.fillStyle = b.col; ctx.fillRect(-b.s / 2, -b.s / 2, b.s, b.s * 0.6);
+      ctx.restore();
+    }
+    if (++frames < 220) requestAnimationFrame(loop);
+    else { ctx.clearRect(0, 0, cv.width, cv.height); cv.hidden = true; }
+  })();
+}
+
+render();
+syncApi();
+</script>
+</body>
+</html>
