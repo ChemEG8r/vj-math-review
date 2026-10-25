@@ -324,7 +324,7 @@ function sRectTri() {
       dimV(-14, 0, H * s, H + " " + unit, "left") +
       dimV(xm * s, (H - t) * s, H * s, t + " " + unit, "right") +
       dimH(x1 * s, x2 * s, H * s + 20, b + " " + unit),
-      W * s, H * s, 52, 30, 44, 40);
+      W * s, H * s, 64, 34, 44, 40);
   };
   return shadedFig("Rect − triangle notch", unit, exact, render, [
     { title: "Spot the cut-out", note: "The triangle notch is CUT OUT of the rectangle — so it's whole shape minus hole.", part: null },
@@ -355,7 +355,7 @@ function sTriCircle() {
     return wrapSVG(base + rad +
       dimV(-14, 0, hh * s, hh + " " + unit, "left") +
       dimH(0, b * s, hh * s + 18, b + " " + unit),
-      b * s, hh * s, 52, 14, 46, 34);
+      b * s, hh * s, 64, 14, 46, 34);
   };
   return shadedFig("Triangle − circle", unit, exact, render, [
     { title: "Spot the cut-out", note: "A circle is cut out of the triangle. Find both areas, then subtract.", part: null },
@@ -421,7 +421,7 @@ function sSquarePara() {
       dimV(-14, 0, S * s, S + " " + unit, "left") +
       dimV((x0 + b / 2 + off / 2) * s, y0 * s, (y0 + hp) * s, hp + " " + unit, "right") +
       `<text class="dlabel" x="${(x0 + b / 2) * s}" y="${(y0 + hp) * s + 16}" text-anchor="middle">${b} ${unit}</text>`,
-      S * s, S * s, 52, 30, 14, 26);
+      S * s, S * s, 64, 34, 14, 26);
   };
   return shadedFig("Square − parallelogram", unit, exact, render, [
     { title: "Spot the cut-out", note: "A slanted parallelogram is cut from the square.", part: null },
@@ -449,7 +449,7 @@ function sFlag() {
     return wrapSVG(base + notchDim +
       dimH(0, W * s, -14, W + " " + unit) +
       dimV(-14, 0, H * s, H + " " + unit, "left"),
-      W * s, H * s, 52, 30, 62, 14);
+      W * s, H * s, 64, 34, 62, 14);
   };
   return shadedFig("Banner (V-notch)", unit, exact, render, [
     { title: "Spot the cut-out", note: "A triangle V-notch is cut from the right edge of the rectangle.", part: null },
@@ -507,7 +507,7 @@ function sRectCircle() {
       dimH(0, W * s, -14, W + " " + unit) +
       dimV(-14, 0, H * s, H + " " + unit, "left") +
       dimH(cx - cr * s, cx + cr * s, cy, cd + " " + unit),
-      W * s, H * s, 52, 30, 14, 14);
+      W * s, H * s, 64, 34, 14, 14);
   };
   return shadedFig("Rect − circle hole", unit, exact, render, [
     { title: "Spot the cut-out", note: "A round hole is punched out of the rectangle.", part: null },
@@ -643,7 +643,7 @@ function fStadium() {
       ? `<path class="shape-main" d="M0 0 H${L * s} A${r * s} ${r * s} 0 0 1 ${L * s} ${H * s} H0 Z"/><line class="cut" x1="${L * s}" y1="0" x2="${L * s}" y2="${H * s}"/>`
       : rectP + semiP;
     return wrapSVG(base + dimH(0, L * s, -14, L + " " + unit) + dimV(-14, 0, H * s, H + " " + unit, "left"),
-      (L + r) * s, H * s, 52, 30, 14, 12);
+      (L + r) * s, H * s, 64, 34, 14, 12);
   };
   return finish("Rectangle + semicircle", unit, exact, render, [
     { title: "Split the figure", note: "Draw a line where the half-circle meets the rectangle — two shapes you know!", part: null },
@@ -697,7 +697,7 @@ function fLshape() {
       dimH(0, W * s, H * s + 18, W + " " + unit) +
       dimV(-14, 0, H * s, H + " " + unit, "left") +
       dimV(W * s + 14, (H - h2) * s, H * s, h2 + " " + unit, "right"),
-      W * s, H * s, 52, 30, 64, 34);
+      W * s, H * s, 64, 34, 64, 34);
   };
   return finish("L-shape (two rectangles)", unit, exact, render, [
     { title: "Split the figure", note: "Cut straight down to make two rectangles.", part: null },
@@ -751,7 +751,7 @@ function fRectPara() {
       dimH(0, W * s, -14, W + " " + unit) +
       dimV(-14, 0, H * s, H + " " + unit, "left") +
       dimV((W + S) * s + 16, 0, total * s, total + " " + unit, "right"),
-      (W + S) * s, total * s, 52, 30, 70, 14);
+      (W + S) * s, total * s, 64, 34, 70, 14);
   };
   return finish("Rectangle + parallelogram", unit, exact, render, [
     { title: "Split the figure", note: "A rectangle with a slanted parallelogram underneath.", part: null },
@@ -778,7 +778,7 @@ function fTrap() {
       dimH(0, a * s, -14, a + " " + unit) +
       dimH(0, b * s, H * s + 18, b + " " + unit) +
       dimV(-14, 0, H * s, H + " " + unit, "left"),
-      b * s, H * s, 52, 30, 14, 34);
+      b * s, H * s, 64, 34, 14, 34);
   };
   return finish("Trapezoid (rect + triangle)", unit, exact, render, [
     { title: "Split the figure", note: "Cut straight down from the short top side: a rectangle plus a right triangle.", part: null },
@@ -806,7 +806,7 @@ function fRocket() {
       dimH(0, W * s, -14, W + " " + unit) +
       dimV(W * s + 16, 0, T * s, T + " " + unit, "right") +
       dimV(W * s + 16, T * s, (T + H) * s, H + " " + unit, "right"),
-      W * s, (T + H + r) * s, 16, 30, 72, 14);
+      W * s, (T + H + r) * s, 16, 34, 72, 14);
   };
   return finish("Rocket: 3 shapes!", unit, exact, render, [
     { title: "Split the figure", note: "THREE pieces: triangle nose, rectangle body, semicircle bottom.", part: null },
