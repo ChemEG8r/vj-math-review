@@ -843,15 +843,13 @@ const COMPOUND = [fStadium, fHouse, fLshape, fCone, fRectPara, fTrap, fRocket];
 
 function buildQuiz() {
   return shuffle([
-    ...SHADED.map(f => f()),
-    pick(SHADED)(),
-    ...CIRC.map(f => f()),
-    pick(CIRC)(),
-    ...COMPOUND.map(f => f()),
-    ...shuffle(RULE_POOL).slice(0, 3).map(p => Object.assign({ t: "Rules", kind: "mc", missLabel: "Rules: " + p.q, ansText: p.o[0] }, p)),
+    ...shuffle(SHADED).slice(0, 4).map(f => f()),
+    ...shuffle(CIRC).slice(0, 4).map(f => f()),
+    ...shuffle(COMPOUND).slice(0, 3).map(f => f()),
+    ...shuffle(RULE_POOL).slice(0, 1).map(p => Object.assign({ t: "Rules", kind: "mc", missLabel: "Rules: " + p.q, ansText: p.o[0] }, p)),
   ]);
 }
-const QUIZ_LEN = 25;
+const QUIZ_LEN = 12;
 
 /* ================= storage (same pattern as the other apps) ================= */
 const KEY = "vj-math-review-history";
@@ -944,9 +942,9 @@ function renderHome() {
   app.innerHTML = `
     <div class="card hero">
       <h1>Circles &amp; shaded shapes, VJ.</h1>
-      <p>Every round is <b>25 fresh questions</b>, all geometry — heavy on the newest stuff: shaded regions (whole shape minus the hole) and circumference word problems, plus the compound figures from last test and a few rule checks. Miss one and the figure lights up step by step.</p>
+      <p>Every round is <b>12 fresh questions</b>, all geometry — heavy on the newest stuff: shaded regions (whole shape minus the hole) and circumference word problems, plus compound figures from last test and a quick rule check. Miss one and the figure lights up step by step.</p>
       <ul class="topic-list">
-        <li>Shaded regions ×8</li><li>Circumference ×7</li><li>Compound areas ×7</li><li>Rules ×3</li>
+        <li>Shaded regions ×4</li><li>Circumference ×4</li><li>Compound areas ×3</li><li>Rules ×1</li>
       </ul>
       <p style="color:var(--muted);font-size:14px;margin-top:10px">Use π = 3.14 · round to 2 decimal places when needed.</p>
       <div class="btn-row"><button class="btn btn-primary btn-wide" id="startBtn">Start a practice test</button></div>
@@ -1135,7 +1133,7 @@ function missListHTML(misses) {
 
 function renderResults() {
   const r = state.lastResult;
-  const msg = r.percent === 100 ? "Perfect 25 — you own this whole test! \u{1F3C6}"
+  const msg = r.percent === 100 ? "Perfect — you own this whole test! \u{1F3C6}"
     : r.percent >= 90 ? "Excellent — you're ready!"
     : r.percent >= 70 ? "Strong — review the misses below."
     : "Keep training — read the cheat sheet, then go again.";
